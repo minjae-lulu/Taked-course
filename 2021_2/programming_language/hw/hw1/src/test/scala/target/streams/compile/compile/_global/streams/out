@@ -1,0 +1,167 @@
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:1:27: object scalatest is not a member of package org[0m
+[0m[[0m[31merror[0m] [0m[0mclass Hw1Test extends org.scalatest.funsuite.AnyFunSuite {[0m
+[0m[[0m[31merror[0m] [0m[0m                          ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:2:3: not found: value test[0m
+[0m[[0m[31merror[0m] [0m[0m  test("Hw1.gcd") {[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:3:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.gcd(16273,12873) === 1)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:4:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.gcd(281333, 72267) === 221)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:5:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.gcd(172, 54) === 2)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:8:3: not found: value test[0m
+[0m[[0m[31merror[0m] [0m[0m  test("Hw1.oddSum") {[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:11:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.oddSum(constant,10) === 25)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:11:23: missing argument list for method constant[0m
+[0m[[0m[31merror[0m] [0m[0mUnapplied methods are only converted to functions when a function type is expected.[0m
+[0m[[0m[31merror[0m] [0m[0mYou can make this conversion explicit by writing `constant _` or `constant(_)` instead of `constant`.[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.oddSum(constant,10) === 25)[0m
+[0m[[0m[31merror[0m] [0m[0m                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:12:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.oddSum(square,20) === 1330)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:12:23: missing argument list for method square[0m
+[0m[[0m[31merror[0m] [0m[0mUnapplied methods are only converted to functions when a function type is expected.[0m
+[0m[[0m[31merror[0m] [0m[0mYou can make this conversion explicit by writing `square _` or `square(_)` instead of `square`.[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.oddSum(square,20) === 1330)[0m
+[0m[[0m[31merror[0m] [0m[0m                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:15:3: not found: value test[0m
+[0m[[0m[31merror[0m] [0m[0m  test("Hw1.foldRight") {[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:16:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.foldRight(100, (x: Int, y:Int) => x % y, Cons(5,Cons(3,Nil))) === 1)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:16:57: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.foldRight(100, (x: Int, y:Int) => x % y, Cons(5,Cons(3,Nil))) === 1)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:16:64: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.foldRight(100, (x: Int, y:Int) => x % y, Cons(5,Cons(3,Nil))) === 1)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:17:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.foldRight(100, (x: Int, y:Int) => x % y, Cons(3,Cons(5,Nil))) === 0)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:17:57: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.foldRight(100, (x: Int, y:Int) => x % y, Cons(3,Cons(5,Nil))) === 0)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:17:64: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.foldRight(100, (x: Int, y:Int) => x % y, Cons(3,Cons(5,Nil))) === 0)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:20:3: not found: value test[0m
+[0m[[0m[31merror[0m] [0m[0m  test("Hw1.map") {[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:22:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 3, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(2,Cons(0,Cons(0,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:22:39: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 3, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(2,Cons(0,Cons(0,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:22:46: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 3, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(2,Cons(0,Cons(0,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:22:53: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 3, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(2,Cons(0,Cons(0,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:22:72: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 3, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(2,Cons(0,Cons(0,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:22:79: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 3, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(2,Cons(0,Cons(0,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                              ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:22:86: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 3, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(2,Cons(0,Cons(0,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:23:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 5, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(0,Cons(3,Cons(1,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:23:39: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 5, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(0,Cons(3,Cons(1,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:23:46: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 5, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(0,Cons(3,Cons(1,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:23:53: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 5, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(0,Cons(3,Cons(1,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:23:72: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 5, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(0,Cons(3,Cons(1,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:23:79: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 5, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(0,Cons(3,Cons(1,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                              ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:23:86: not found: value Cons[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.map((x: Int) => x % 5, Cons(5,Cons(3,Cons(6,Nil)))) === Cons(0,Cons(3,Cons(1,Nil))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:26:3: not found: value test[0m
+[0m[[0m[31merror[0m] [0m[0m  test("Hw1.iter") {[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:29:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.iter[Int](constant, 10)(10) === 10)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:30:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.iter[Int](square, 3)(2) === 256)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:33:3: not found: value test[0m
+[0m[[0m[31merror[0m] [0m[0m  test("Hw1.insert") {[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:34:18: not found: value IntNode[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_0 = IntNode(10,IntNode(9,IntNode(8,Leaf,Leaf),Leaf),Leaf)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:34:29: not found: value IntNode[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_0 = IntNode(10,IntNode(9,IntNode(8,Leaf,Leaf),Leaf),Leaf)[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:34:39: not found: value IntNode[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_0 = IntNode(10,IntNode(9,IntNode(8,Leaf,Leaf),Leaf),Leaf)[0m
+[0m[[0m[31merror[0m] [0m[0m                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:34:49: not found: value Leaf[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_0 = IntNode(10,IntNode(9,IntNode(8,Leaf,Leaf),Leaf),Leaf)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:34:54: not found: value Leaf[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_0 = IntNode(10,IntNode(9,IntNode(8,Leaf,Leaf),Leaf),Leaf)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:34:60: not found: value Leaf[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_0 = IntNode(10,IntNode(9,IntNode(8,Leaf,Leaf),Leaf),Leaf)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:34:66: not found: value Leaf[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_0 = IntNode(10,IntNode(9,IntNode(8,Leaf,Leaf),Leaf),Leaf)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:35:18: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_1 = Hw1.insert(step_0, 11)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:36:18: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    val step_2 = Hw1.insert(step_1, 12)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:41:3: not found: value test[0m
+[0m[[0m[31merror[0m] [0m[0m  test("Hw1.eval") {[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:42:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.eval(True) === true)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:42:21: not found: value True[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.eval(True) === true)[0m
+[0m[[0m[31merror[0m] [0m[0m                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:43:12: not found: value Hw1[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.eval(Andalso(Orelse(True,False),True)) === true)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:43:21: not found: value Andalso[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.eval(Andalso(Orelse(True,False),True)) === true)[0m
+[0m[[0m[31merror[0m] [0m[0m                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:43:29: not found: value Orelse[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.eval(Andalso(Orelse(True,False),True)) === true)[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:43:36: not found: value True[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.eval(Andalso(Orelse(True,False),True)) === true)[0m
+[0m[[0m[31merror[0m] [0m[0m                                   ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:43:41: not found: value False[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.eval(Andalso(Orelse(True,False),True)) === true)[0m
+[0m[[0m[31merror[0m] [0m[0m                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/minjae/Unist_course/2021_2/programming_language/hw/hw1/src/test/scala/Hw1Test.scala:43:48: not found: value True[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(Hw1.eval(Andalso(Orelse(True,False),True)) === true)[0m
+[0m[[0m[31merror[0m] [0m[0m                                               ^[0m
+[0m[[0m[31merror[0m] [0m[0m54 errors found[0m

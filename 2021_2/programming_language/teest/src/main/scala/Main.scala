@@ -1,3 +1,4 @@
 object Main extends App {
-  println("Hello, World! my name is leeminjae")
+	var y = 11
+	println(y)
 }
