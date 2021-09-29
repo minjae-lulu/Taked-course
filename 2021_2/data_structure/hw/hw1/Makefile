@@ -1,8 +1,8 @@
-test1 : test1.o
-	g++ -o test1 test1.o
+test2 : test2.o
+	g++ -o test2 test2.o
 
-test1.o : test1.cpp circlelist.h
-	g++ -c test1.cpp
+test2.o : test2.cpp circlelist.h
+	g++ -c test2.cpp
 
 clean :
-	rm test1 test1.o
+	rm test2.exe test2.o
