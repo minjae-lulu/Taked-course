@@ -170,7 +170,3 @@ ostream& operator<<(ostream & out, CircleList<E>& l) {
 //exception handle front(). back(), remove() when empty 
 
 #endif
-
-
-// question : at << operator and == operator we must use "const" CircleList<E>?
-// 
