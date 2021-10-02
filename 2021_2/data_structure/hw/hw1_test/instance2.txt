@@ -1,0 +1,34 @@
+add 12
+add 4
+add 16
+add 51
+remove
+add 23
+advance
+remove
+advance
+add 18
+reverse
+add 35
+advance
+add 28
+advance
+advance
+add 8
+reverse
+find 12
+add 19
+add 29
+advance
+advance
+advance
+add 31
+advance
+reverse
+add 6
+find 12
+remove
+advance
+advance
+reverse
+advance
