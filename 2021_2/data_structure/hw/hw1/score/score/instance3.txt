@@ -1,0 +1,100 @@
+add 1
+reverse
+remove
+add 2
+find 35
+reverse
+add 3
+remove
+add 4
+advance
+add 5
+advance
+add 6
+find 26
+add 7
+add 8
+reverse
+reverse
+find 68
+remove
+remove
+advance
+advance
+advance
+add 9
+add 10
+add 11
+find 2
+add 12
+add 13
+find 67
+add 14
+reverse
+add 15
+reverse
+remove
+remove
+remove
+find 84
+add 16
+advance
+advance
+find 70
+find 26
+add 17
+advance
+advance
+remove
+advance
+advance
+reverse
+add 18
+remove
+remove
+advance
+remove
+advance
+find 46
+remove
+add 19
+find 24
+remove
+add 20
+remove
+advance
+remove
+advance
+advance
+remove
+advance
+add 21
+add 22
+add 23
+advance
+advance
+add 24
+remove
+find 54
+add 25
+add 26
+add 27
+advance
+add 28
+add 29
+reverse
+reverse
+add 30
+add 31
+find 95
+reverse
+advance
+reverse
+find 1
+find 2
+remove
+add 32
+reverse
+advance
+add 33
+advance

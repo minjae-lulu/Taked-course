@@ -1,0 +1,50 @@
+add 1
+reverse
+remove
+add 2
+find 35
+reverse
+add 3
+remove
+add 4
+advance
+add 5
+advance
+add 6
+find 26
+add 7
+add 8
+reverse
+reverse
+find 18
+remove
+remove
+advance
+advance
+advance
+add 9
+add 10
+add 11
+find 2
+add 12
+add 13
+find 17
+add 14
+reverse
+add 15
+reverse
+remove
+remove
+remove
+find 34
+add 16
+advance
+advance
+find 20
+find 26
+add 17
+advance
+advance
+remove
+advance
+advance

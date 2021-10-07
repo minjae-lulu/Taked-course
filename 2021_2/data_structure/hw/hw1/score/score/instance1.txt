@@ -1,0 +1,10 @@
+add 1
+reverse
+remove
+add 2
+find 5
+reverse
+add 3
+remove
+add 4
+advance

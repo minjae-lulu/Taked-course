@@ -100,24 +100,17 @@ int main(){
     cout << "SUCCESS: l1=l2\n";
   
   cout << "modify a random element of l1" << endl;
-
-  cout << '\n' << '\n' << '\n';
-
   int r=rand() % 100;
-  cout << "test_ r val is: " << r << '\n';
   for(int i=0;i<100;i++){
     if(i==r){
       l1.remove();
       l1.add(-1);
-      cout << "test_ add-1 and back is:  " << l1.back() << '\n';  
-      cout << "test_ add-1 and front is:  " << l1.front() << '\n';  
     }
     l1.advance();
   }
   success=false;
   for(int i=1;i<=100;i++){
     l1.advance(); l2.advance();
-    cout << "test_ l1 and l2 back is:  " << l1.back() << " and " << l2.back() << '\n';  
     if(l1.back()!=l2.back()){
       success=true;
     }

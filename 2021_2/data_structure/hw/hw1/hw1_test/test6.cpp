@@ -14,7 +14,6 @@ int main(){
   
     CircleList<int> l2=l1;
 
-
     // cout << l1 << '\n';
     // cout << l2 << '\n';
 

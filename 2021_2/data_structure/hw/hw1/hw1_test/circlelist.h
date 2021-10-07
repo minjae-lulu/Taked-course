@@ -21,7 +21,7 @@ class CircleList {
 public:
     CircleList(); // default constructor
     CircleList(const CircleList<E> & L);// copy constructor
-    //CircleList &operator=(CircleList<E> const &L); // copy assignment
+    CircleList &operator=(CircleList<E> const &L); // copy assignment
     ~CircleList(); // destructor
 
     bool empty() const; // returns true if list is empty
@@ -51,20 +51,29 @@ CircleList<E>::CircleList(const CircleList<E> & L){
         l_size = 0;
     }
     else{
+        
+        //delete cursor;
+        // l_size = L.l_size;
+        // cursor = new CNode<E>;
+        // *cursor = *L.cursor;
+
+
         l_size = L.l_size;
         cursor = new CNode<E>;
-        cursor = L.cursor;
+        *cursor = *L.cursor;
+        for(int i=0; i<L.size(); i++){
+            cursor = cursor->next; 
+        }
         
+
         // cursor = new CNode<E>;
         // CNode<E>* Temp = new CNode<E>;
         // cursor->elem = L.cursor->elem;
         // cursor->next = L.cursor->next;
-
         // cursor = cursor->next;
         // Temp = L.cursor->next;
         // cursor->elem = Temp->elem;
         // cursor->next = Temp->next;
-
         // for(int i=0; i<L.size()-2; i++){
         //     cursor = cursor->next;
         //     Temp = Temp->next;
@@ -72,17 +81,38 @@ CircleList<E>::CircleList(const CircleList<E> & L){
         //     cursor->next = Temp->next;
         // }
         // advance();
-        
     }
 }
 
-// template <typename E>
-// CircleList<E> &CircleList<E>::operator=(CircleList<E> const &L){
-//     this->cursor = new CNode<E>;
-//     this->*cursor = *L.cursor;
-//     this->l_size = L.l_size;
-//     return *this;
-// }
+template <typename E>
+CircleList<E> &CircleList<E>::operator=(CircleList<E> const &L){
+    
+    delete cursor;
+    cursor = new CNode<E>;
+    l_size = L.l_size;
+    *cursor = *L.cursor;
+    for(int i=0; i<L.size(); i++){
+        cursor = cursor->next; 
+    }
+    
+    // cursor = new CNode<E>;
+    // CNode<E>* Temp = new CNode<E>;
+    // cursor->elem = L.cursor->elem;
+    // cursor->next = L.cursor->next;
+    // cursor = cursor->next;
+    // Temp = L.cursor->next;
+    // cursor->elem = Temp->elem;
+    // cursor->next = Temp->next;
+    // for(int i=0; i<L.size()-2; i++){
+    //     cursor = cursor->next;
+    //     Temp = Temp->next;
+    //     cursor->elem = Temp->elem;
+    //     cursor->next = Temp->next;
+    // }
+    // advance();
+    
+    return *this;
+}
 
 
 template <typename E>

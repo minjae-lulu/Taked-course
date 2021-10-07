@@ -1,0 +1,13 @@
+----------------------- Starting test4.cpp ----------------------- 
+create lists l1 and l2 of integers with default constructor
+fill l1 and l2 with the same 100 random numbers
+SUCCESS: l1==l2
+SUCCESS: l1==l1
+modify a random element of l1
+SUCCESS: l1!=l2
+create empty list l3 and add 45,3,-7,124
+write l3 into a string s through <<
+124 -7 3 45 your output
+124 -7 3 45 desired output
+SUCCESS
+----------------------- Completed test4.cpp ----------------------- 
