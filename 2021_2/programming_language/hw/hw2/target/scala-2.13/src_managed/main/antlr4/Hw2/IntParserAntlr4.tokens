@@ -1,0 +1,16 @@
+WS=1
+INT=2
+PLUS=3
+MINUS=4
+STAR=5
+SIGMA=6
+PI=7
+POW=8
+ID=9
+'+'=3
+'-'=4
+'*'=5
+'sigma'=6
+'pi'=7
+'pow'=8
+'x'=9

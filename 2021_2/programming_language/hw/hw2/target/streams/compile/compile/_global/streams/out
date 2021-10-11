@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw2\src\main\scala\Hw2.scala:187:54: not found: value value[0m
+[0m[[0m[31merror[0m] [0m[0m    case Ite(c,t,f) => s"if ${apply(c)} then ${apply(value)} in ${apply(body)}"[0m
+[0m[[0m[31merror[0m] [0m[0m                                                     ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw2\src\main\scala\Hw2.scala:187:73: not found: value body[0m
+[0m[[0m[31merror[0m] [0m[0m    case Ite(c,t,f) => s"if ${apply(c)} then ${apply(value)} in ${apply(body)}"[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
