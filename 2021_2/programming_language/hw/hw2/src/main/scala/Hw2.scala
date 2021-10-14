@@ -135,6 +135,11 @@ object LetRecInterpreter {
       case _ => BoolVal(false)
     }
 
+    case Less(l,r) => 
+    (eval(env,l), eval(env,r)) match{
+      
+    }
+
     case Ite(c,t,f) =>
     eval(env,c) match{
       case (v1:BoolVal) => if(v1.b) eval(env,t) else eval(env,f)
@@ -184,14 +189,13 @@ object LetRecToString {
     case Sub(l,r) => s"${apply(l)} - ${apply(r)}"
     case Equal(l,r) => s"${apply(l)} == ${apply(r)}"
     case Iszero(c) => s"iszero ${apply(c)}"
+    //case Less(l,r) => s"${apply(l)} < ${apply(r)}"
     case Ite(c,t,f) => s"if ${apply(c)} then ${apply(t)} else ${apply(f)}"
     case Let(name, value, body) => s"let ${apply(name)} = ${apply(value)} in ${apply(body)}"
     case Paren(expr) =>   s"(${apply(expr)})" // add() x
     case Proc(v, expr) => s"proc ${apply(v)} ${apply(expr)}"
     case PCall(ftn,arg) => s"${apply(ftn)} ${apply(arg)}" // x
     case LetRec(fname,aname,fbody,ibody) => s"letrec ${apply(fname)}(${apply(aname)}) = ${apply(fbody)} in ${apply(ibody)}"
-    case _ => throw new Exception("No match case")
-
 
   }
 }

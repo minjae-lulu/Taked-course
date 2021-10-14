@@ -5,7 +5,7 @@ import scala.collection.immutable.HashMap
 class Hw2Test extends org.scalatest.funsuite.AnyFunSuite {
   test("Hw2.IntInterpreter") {
     val testCases = List(
-      ("1 + 1",2)
+      ("1 + 1", 2)
       ,("pow 2 2",4)
       ,("sigma 1 1 2",2)
       ,("sigma 1 2 x+1",5)
