@@ -1,0 +1,1 @@
+newtonRaphson2(@leeminjae,[1;1;1;20])

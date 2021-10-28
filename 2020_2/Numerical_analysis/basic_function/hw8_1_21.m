@@ -1,0 +1,33 @@
+%hw8_1_21
+
+function hw8_1_21
+% Shooting method for 3rd-order boundary value
+% problem in Example 8.3.
+xStart = 0; xStop = 5;   % Range of integration.
+h = 1;                % Step size.
+u1 = -5; u2 = 5;          % Trial values of unknown
+                         % initial condition u.
+x = xStart;
+u = ridder(@residual,u1,u2);
+[xSol,ySol] = runKut5(@dEqs,x,inCond(u),xStop,h);
+printSol(xSol,ySol,2)
+plot(xSol,ySol(:,1),'k-o'); hold on
+plot(xSol,ySol(:,2),'r-x'); 
+legend('y','dy/dx','location','best')
+
+grid on
+
+    function F = dEqs(x,y) % 1st-order differential eqs.
+    F = [y(2), y(3), -y(1)*y(3)];
+    end
+
+    function y = inCond(u) % Initial conditions.
+    y = [0 0 u];
+    end
+
+    function r = residual(u) % Boundary residual.
+    x = xStart;
+    [xSol,ySol] = runKut5(@dEqs,x,inCond(u),xStop,h);
+    r = ySol(size(ySol,1),2) - 2;
+    end
+end

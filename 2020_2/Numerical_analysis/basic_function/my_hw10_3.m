@@ -1,0 +1,27 @@
+function my_hw10_3
+% 1-D heat equation using the Crank-Nicolson method
+xStart = 0.0; xStop = 1.0; 
+dx = 0.1; J = (xStop - xStart)/dx +1; 
+x = linspace(xStart,xStop,J)'; 
+dt = 0.05; time = 0.0; tStop = 1.0;
+alpha = 0.1; r = alpha*dt/dx^2/2; S = 1.0;
+
+f = zeros(J,1);% initial condition f(:,1) - old; f(:,2) - new
+plot(x,f); %hold on; 
+xlabel('x'), ylabel('f'), grid on
+title '1D heat equation with the CN method'
+
+c = -r*ones(J-1,1); c(J-1) = 0;
+d = (1+2*r)*ones(J,1); d(J) = 1.0;
+e = -r*ones(J-1,1); e(1) = -2*r;
+b = zeros(J,1);
+[c,d,e] = LUdec3(c,d,e);
+
+while (time < tStop)
+    b(J) = 0.0;   % boundary condition
+    b(1) = r*f(2)+(1-2*r)*f(1)+r*f(2)+S*dt;
+    b(2:J-1) = r*f(1:J-2)+(1-2*r)*f(2:J-1)+r*f(3:J)+S*dt;
+    f = LUsol3(c,d,e,b);
+    plot(x,f); %pause(0.01);
+    time = time + dt;
+end

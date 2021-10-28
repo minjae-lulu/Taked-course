@@ -1,0 +1,8 @@
+----------------------- Starting test5.cpp ----------------------- 
+SUCCESS: back=28
+SUCCESS: front=35
+SUCCESS: size=10
+35 12 29 19 23 31 6 8 4 28 your output
+35 12 29 19 23 31 6 8 4 28 desired output
+SUCCESS
+----------------------- Completed test5.cpp ----------------------- 

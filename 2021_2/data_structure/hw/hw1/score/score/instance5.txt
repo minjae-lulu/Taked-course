@@ -1,0 +1,500 @@
+add 1
+reverse
+remove
+add 2
+find 335
+reverse
+add 3
+remove
+add 4
+advance
+add 5
+advance
+add 6
+find 426
+add 7
+add 8
+reverse
+reverse
+find 368
+remove
+remove
+advance
+advance
+advance
+add 9
+add 10
+add 11
+find 302
+add 12
+add 13
+find 167
+add 14
+reverse
+add 15
+reverse
+remove
+remove
+remove
+find 284
+add 16
+advance
+advance
+find 370
+find 26
+add 17
+advance
+advance
+remove
+advance
+advance
+reverse
+add 18
+remove
+remove
+advance
+remove
+advance
+find 346
+remove
+add 19
+find 124
+remove
+add 20
+remove
+advance
+remove
+advance
+advance
+remove
+advance
+add 21
+add 22
+add 23
+advance
+advance
+add 24
+remove
+find 254
+add 25
+add 26
+add 27
+advance
+add 28
+add 29
+reverse
+reverse
+add 30
+add 31
+find 295
+reverse
+advance
+reverse
+find 101
+find 402
+remove
+add 32
+reverse
+advance
+add 33
+advance
+advance
+add 34
+remove
+find 444
+find 440
+remove
+remove
+add 35
+remove
+find 481
+find 209
+add 36
+remove
+reverse
+find 353
+add 37
+find 306
+find 219
+advance
+reverse
+remove
+advance
+find 3
+find 270
+add 38
+reverse
+find 340
+remove
+add 39
+find 118
+add 40
+advance
+remove
+add 41
+find 379
+reverse
+advance
+advance
+add 42
+advance
+add 43
+reverse
+advance
+reverse
+add 44
+reverse
+find 356
+remove
+remove
+find 365
+remove
+reverse
+reverse
+find 437
+reverse
+find 407
+add 45
+add 46
+advance
+add 47
+find 237
+remove
+add 48
+advance
+advance
+remove
+remove
+add 49
+remove
+advance
+reverse
+add 50
+add 51
+find 38
+advance
+reverse
+reverse
+reverse
+add 52
+add 53
+remove
+remove
+find 496
+advance
+remove
+add 54
+find 490
+find 272
+find 144
+add 55
+find 139
+advance
+reverse
+remove
+advance
+add 56
+advance
+add 57
+remove
+remove
+reverse
+advance
+find 122
+add 58
+find 343
+reverse
+advance
+reverse
+reverse
+find 310
+remove
+add 59
+add 60
+add 61
+reverse
+find 320
+advance
+reverse
+add 62
+add 63
+find 208
+reverse
+add 64
+advance
+advance
+remove
+add 65
+advance
+add 66
+add 67
+advance
+find 379
+reverse
+advance
+find 473
+find 381
+reverse
+add 68
+advance
+reverse
+remove
+add 69
+find 399
+reverse
+remove
+remove
+add 70
+add 71
+advance
+add 72
+advance
+advance
+advance
+add 73
+reverse
+advance
+add 74
+add 75
+add 76
+add 77
+remove
+add 78
+add 79
+add 80
+find 412
+reverse
+reverse
+remove
+remove
+advance
+advance
+add 81
+find 206
+remove
+add 82
+add 83
+add 84
+add 85
+find 99
+remove
+advance
+add 86
+add 87
+advance
+find 205
+add 88
+find 150
+add 89
+reverse
+add 90
+reverse
+reverse
+find 396
+add 91
+add 92
+advance
+reverse
+add 93
+advance
+advance
+add 94
+remove
+advance
+add 95
+reverse
+advance
+advance
+find 298
+advance
+add 96
+advance
+find 81
+remove
+reverse
+add 97
+add 98
+advance
+reverse
+find 269
+remove
+advance
+add 99
+add 100
+reverse
+reverse
+find 384
+add 101
+add 102
+find 67
+advance
+add 103
+add 104
+advance
+add 105
+remove
+reverse
+reverse
+reverse
+advance
+advance
+add 106
+add 107
+add 108
+add 109
+add 110
+reverse
+add 111
+add 112
+add 113
+add 114
+add 115
+add 116
+advance
+remove
+add 117
+add 118
+advance
+add 119
+add 120
+add 121
+add 122
+advance
+remove
+advance
+add 123
+add 124
+find 249
+reverse
+add 125
+add 126
+remove
+find 253
+reverse
+add 127
+remove
+advance
+reverse
+add 128
+advance
+remove
+remove
+reverse
+add 129
+advance
+remove
+add 130
+advance
+advance
+add 131
+advance
+advance
+reverse
+advance
+advance
+remove
+add 132
+add 133
+find 2
+add 134
+remove
+advance
+find 147
+add 135
+add 136
+find 35
+advance
+add 137
+advance
+remove
+remove
+add 138
+find 49
+add 139
+find 429
+find 335
+remove
+reverse
+reverse
+find 449
+remove
+find 488
+add 140
+find 243
+add 141
+remove
+reverse
+add 142
+advance
+remove
+remove
+advance
+advance
+find 42
+add 143
+remove
+remove
+find 81
+remove
+add 144
+remove
+advance
+remove
+find 234
+add 145
+reverse
+reverse
+find 114
+advance
+remove
+advance
+advance
+reverse
+reverse
+add 146
+add 147
+add 148
+reverse
+advance
+add 149
+add 150
+add 151
+reverse
+find 470
+remove
+add 152
+find 93
+add 153
+add 154
+advance
+reverse
+add 155
+add 156
+advance
+advance
+add 157
+remove
+advance
+add 158
+remove
+advance
+find 141
+advance
+remove
+remove
+reverse
+reverse
+reverse
+reverse
+reverse
+advance
+remove
+add 159
+reverse
+add 160
+find 205
+add 161
+find 18
+find 283
+add 162
+advance
