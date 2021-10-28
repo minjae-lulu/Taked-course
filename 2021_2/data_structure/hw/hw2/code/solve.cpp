@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
   Board C(argv[1]);
   bool result=knightTour(C);
   if (result)
-    cout << C.getm() << endl << C.getn() << endl << C;
+    cout <<  C;
   else
     cout << 0 << endl;
   return EXIT_SUCCESS;

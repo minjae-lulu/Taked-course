@@ -44,8 +44,8 @@ int main(){
   Square t[9];
   for(int d=1;d<=8;d++)
     t[d]=move(s,d);
-  // for(int d=1;d<=8;d++)
-  //   cout << t[d].geti() << " " << t[d].getj()<< endl;
+//  for(int d=1;d<=8;d++)
+//    cout << t[d].geti() << " " << t[d].getj()<< endl;
   Square u[9];
   u[1]=Square(6,7);
   u[2]=Square(5,8);
