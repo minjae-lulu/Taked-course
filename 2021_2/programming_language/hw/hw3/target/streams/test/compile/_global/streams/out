@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0mD:\local_coding\Taked-course\2021_2\programming_language\hw\hw3\src\test\scala\Hw3Test.scala:91:51: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : ((String, hw3.Val)) => org.scalatest.Assertion[0m
+[0m[[0m[31merror[0m] [0m[0m    (which expands to)  ((String, hw3.Val)) => org.scalatest.compatible.Assertion[0m
+[0m[[0m[31merror[0m] [0m[0m required: Any => ?[0m
+[0m[[0m[31merror[0m] [0m[0m    miniScalaTestCases.foreach((a: (String, Val)) => {assert(MiniScalaInterpreter(a._1) === a._2)} )[0m
+[0m[[0m[31merror[0m] [0m[0m                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

@@ -205,5 +205,6 @@ object Hw2App extends App {
   val parsed = IntParser(int_prog)
   println(parsed)
 
-
+  //println("ahah test test")
+  //println(("1 + 1" == IntVal(2)))
 }

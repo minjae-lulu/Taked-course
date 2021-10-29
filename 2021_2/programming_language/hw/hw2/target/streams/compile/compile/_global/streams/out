@@ -1,4 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0mD:\local_coding\Taked-course\2021_2\programming_language\hw\hw2\src\main\scala\Hw2.scala:141:5: 'case' expected but '}' found.[0m
-[0m[[0m[31merror[0m] [0m[0m    }[0m
-[0m[[0m[31merror[0m] [0m[0m    ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[33mwarn[0m] [0m[0mD:\local_coding\Taked-course\2021_2\programming_language\hw\hw2\src\main\scala\Hw2.scala:209:14: comparing values of types Int and Hw2.IntVal using `==` will always yield false[0m
+[0m[[0m[33mwarn[0m] [0m[0m  println((2 == IntVal(2)))[0m
+[0m[[0m[33mwarn[0m] [0m[0m             ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
