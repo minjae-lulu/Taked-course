@@ -109,7 +109,11 @@ object LetRecInterpreter {
   
   def eval(env: Env, expr: Expr): Val = expr match {
     case Const(n) => IntVal(n)
-    case Var(s) => if(env.exists(Var(s))) env(Var(s)) else throw new Exception("No exist error")
+    case Var(s) => 
+      if(env.exists(Var(s))) {
+        env(Var(s))
+      } 
+      else throw new Exception("No exist error")
 
     case Add(l,r) => 
     (eval(env,l), eval(env,r)) match{

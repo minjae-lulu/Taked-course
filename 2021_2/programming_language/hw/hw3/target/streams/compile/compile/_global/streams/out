@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0mD:\local_coding\Taked-course\2021_2\programming_language\hw\hw3\src\main\scala\Hw3.scala:123:27: value :: is not a member of Int[0m
+[0m[[0m[31merror[0m] [0m[0m        Result(IntVal(x.n :: y.n), temp2)[0m
+[0m[[0m[31merror[0m] [0m[0m                          ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

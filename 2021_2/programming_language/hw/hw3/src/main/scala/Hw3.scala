@@ -11,7 +11,9 @@ package object hw3 {
 }
 
 case class Mem(m: HashMap[Loc,Val], top: Loc) {
-
+  def exists(v: Val): Boolean =
+    m.exists((a: (Loc, Val)) => a._2 == v)
+  def add(v: Loc, value: Val) = Mem(m + (v -> value),v)
 }
 
 sealed trait Val
@@ -60,7 +62,70 @@ object MiniScalaInterpreter {
   case class UndefinedSemantics(msg: String = "", cause: Throwable = None.orNull) extends Exception("Undefined Semantics: " ++ msg, cause)
   
   
-  def eval(env: Env, mem: Mem, expr: Expr): Result = Result(BoolVal(false), Mem(new HashMap[Loc,Val],0))
+  def eval(env: Env, mem: Mem, expr: Expr): Result = expr match {
+    case ConstI(n) => Result(IntVal(n), mem)
+    case ConstB(n) => Result(BoolVal(n), mem)
+    case ConstIL(n) => Result(IntListVal(n), mem)
+
+    case Var(s) =>
+      if(env.exists((a : (Var, Val)) => a._1 == Var(s))) {
+        val temp = env(Var(s))
+        temp match {
+          case LocVal(1) => Result(mem.m.getOrElse(1,throw UndefinedSemantics("Problem")), mem)
+          case _ => Result(temp, mem)
+        }
+      }
+      else{
+        throw UndefinedSemantics("error occur")
+      }
+    
+    
+    case Add(l, r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
+      case (x: IntVal, y: IntVal) => {
+        val temp1 = mem.add(mem.top+1,x)
+        val temp2 = mem.add(temp1.top+1,y)
+        Result(IntVal(x.n + y.n), temp2)
+      }
+      case _ => throw UndefinedSemantics("Type error occur")
+    }
+
+    case Sub(l,r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
+      case (x: IntVal, y: IntVal) => {
+        val temp1 = mem.add(mem.top+1,x)
+        val temp2 = mem.add(temp1.top+1,y)
+        Result(IntVal(x.n - y.n), temp2)
+      }
+      case _ => throw UndefinedSemantics("Type error occur")
+    }
+
+    case Mul(l,r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
+      case (x: IntVal, y: IntVal) => {
+        val temp1 = mem.add(mem.top+1,x)
+        val temp2 = mem.add(temp1.top+1,y)
+        Result(IntVal(x.n * y.n), temp2)
+      }
+      case _ => throw UndefinedSemantics("Type error occur")
+    }
+    
+    case Div(l,r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
+      case (x: IntVal, y: IntVal) => {
+        val temp1 = mem.add(mem.top+1,x)
+        val temp2 = mem.add(temp1.top+1,y)
+        Result(IntVal(x.n / y.n), temp2)
+      }
+      case _ => throw UndefinedSemantics("Type error occur")
+    }
+    
+    // case Cons(l,r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
+    //   case (x: IntVal, y: IntVal) => {
+    //     val temp1 = mem.add(mem.top+1,x)
+    //     val temp2 = mem.add(temp1.top+1,y)
+    //     Result(IntVal(x.n :: y.n), temp2)
+    //   }
+    //   case _ => throw UndefinedSemantics("Type error occur")
+    // }
+    
+  }
   
   def apply(program: String): Val = {
     val parsed = MiniScalaParserDriver(program)
