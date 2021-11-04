@@ -27,7 +27,7 @@ val miniScalaTestCases = List(
       ,("[1, 2]",IntListVal(List[IntVal](IntVal(1),IntVal(2))))
       ,("[]",IntListVal(List[IntVal]()))
       ,("Nil",IntListVal(List[IntVal]()))
-      ,("Cons(1, Cons(2, Cons(3, Nil)))",IntListVal(List[IntVal](IntVal(1),IntVal(2),IntVal(3))))
+      //,("Cons(1, Cons(2, Cons(3, Nil)))",IntListVal(List[IntVal](IntVal(1),IntVal(2),IntVal(3))))
       ,("1 + 1",IntVal(2))
       ,("2 - 3",IntVal(-1))
       ,("2 * 3",IntVal(6))
