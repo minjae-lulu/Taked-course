@@ -1,5 +1,4 @@
-[0m[[0m[33mwarn[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw3\src\main\scala\Hw3.scala:65:54: match may not be exhaustive.[0m
-[0m[[0m[33mwarn[0m] [0m[0mIt would fail on the following input: Cons(_, _)[0m
-[0m[[0m[33mwarn[0m] [0m[0m  def eval(env: Env, mem: Mem, expr: Expr): Result = expr match {[0m
-[0m[[0m[33mwarn[0m] [0m[0m                                                     ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mD:\local_coding\Taked-course\2021_2\programming_language\hw\hw3\src\main\scala\Hw3.scala:115:14: comparing values of types hw3.IntVal and Int using `==` will always yield false[0m
+[0m[[0m[33mwarn[0m] [0m[0m        if(y == 0){[0m
+[0m[[0m[33mwarn[0m] [0m[0m             ^[0m
 [0m[[0m[33mwarn[0m] [0m[0mone warning found[0m

@@ -1,4 +1,4 @@
-// Generated from D:\coding\Taked-course\2021_2\programming_language\hw\hw3\src\main\antlr4\MiniScalaParser.g4 by ANTLR 4.8
+// Generated from D:\local_coding\Taked-course\2021_2\programming_language\hw\hw3\src\main\antlr4\MiniScalaParser.g4 by ANTLR 4.8
 package hw3;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;

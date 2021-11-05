@@ -109,27 +109,50 @@ object MiniScalaInterpreter {
     
     case Div(l,r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
       case (x: IntVal, y: IntVal) => {
+        
         val temp1 = mem.add(mem.top+1,x)
         val temp2 = mem.add(temp1.top+1,y)
-        Result(IntVal(x.n / y.n), temp2)
+        if(y.n == 0){
+          throw UndefinedSemantics("/ by 0 error occur")
+        }
+        else{
+          Result(IntVal(x.n / y.n), temp2)
+        }
       }
       case _ => throw UndefinedSemantics("Type error occur")
     }
+
     
     // case Cons(l,r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
-    //   case (x: IntVal, y: IntVal) => {
+    //   case (x: IntVal, y: IntListVal) => {
     //     val temp1 = mem.add(mem.top+1,x)
     //     val temp2 = mem.add(temp1.top+1,y)
-    //     Result(IntVal(x.n :: y.n), temp2)
+    //     Result(IntListVal(IntVal(x) :: y), temp2)
     //   }
     //   case _ => throw UndefinedSemantics("Type error occur")
     // }
+
+    case Cons(l,r) => {
+      val temp1 : Result = eval(env,mem,l)
+      val temp2 : Result = eval(env,temp1.m,r)
+      (temp1.v, temp2.v) match{
+        case (IntVal(x), IntListVal(y)) => {
+          Result(IntListVal(IntVal(x) :: y), temp2.m)
+        }
+        case _ => throw UndefinedSemantics("Type error occur")
+      }
+    }
     
     case Rem(l,r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
       case (x: IntVal, y: IntVal) => {
         val temp1 = mem.add(mem.top+1,x)
         val temp2 = mem.add(temp1.top+1,y)
-        Result(IntVal(x.n % y.n), temp2)
+        if(y.n == 0){
+          throw UndefinedSemantics("% by 0 error occur")
+        }
+        else{
+          Result(IntVal(x.n % y.n), temp2)
+        }
       }
       case _ => throw UndefinedSemantics("Type error occur")
     }
@@ -147,7 +170,7 @@ object MiniScalaInterpreter {
       case (x: IntVal, y: IntVal) => {
         val temp1 = mem.add(mem.top+1,x)
         val temp2 = mem.add(temp1.top+1,y)
-        Result(BoolVal(x.n > y.n), temp2)
+        Result(BoolVal(x.n >= y.n), temp2)
       }
       case _ => throw UndefinedSemantics("Type error occur")
     }
@@ -163,8 +186,8 @@ object MiniScalaInterpreter {
     case Ite(c,t,f) => eval(env,mem,c).v match {
       case v: BoolVal => {
         val temp1 = mem.add(mem.top+1, v)
-        if (v.b) eval(env, temp1, t)
-        else eval(env,temp1,f)
+        if (v.b) eval(env, temp1, t)  // if condition true
+        else eval(env,temp1,f)        // if condition not true
       }
       case _ => throw UndefinedSemantics("Type error occur")
     }
@@ -178,7 +201,7 @@ object MiniScalaInterpreter {
     case VarExpr(name, value, body) => {
       val temp1 = eval(env, mem, value)
       val temp2 = mem.add(mem.top+1, temp1.v)
-      val new_env = env + (name -> LocVal(temp2.top))
+      val new_env = env + (name -> LocVal(temp2.top)) // need LocVal
       eval(new_env, temp2, body)
     }
 
@@ -238,7 +261,7 @@ object MiniScalaInterpreter {
       case _ => throw UndefinedSemantics("Type error occur")
     }
 
-    //case _ => throw UndefinedSemantics("Not Defined Case")
+    case _ => throw UndefinedSemantics("Not Defined Case")
 
 
   }
