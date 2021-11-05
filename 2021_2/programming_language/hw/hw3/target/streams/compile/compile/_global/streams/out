@@ -1,4 +1,6 @@
-[0m[[0m[33mwarn[0m] [0m[0mD:\local_coding\Taked-course\2021_2\programming_language\hw\hw3\src\main\scala\Hw3.scala:115:14: comparing values of types hw3.IntVal and Int using `==` will always yield false[0m
-[0m[[0m[33mwarn[0m] [0m[0m        if(y == 0){[0m
-[0m[[0m[33mwarn[0m] [0m[0m             ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw3\src\main\scala\Hw3.scala:159:56: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Boolean[0m
+[0m[[0m[31merror[0m] [0m[0m required: Int[0m
+[0m[[0m[31merror[0m] [0m[0m        case (IntVal(x), IntVal(y)) => Result(IntVal(x > y), temp2.m)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
