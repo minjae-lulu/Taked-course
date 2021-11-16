@@ -207,11 +207,6 @@ ostream& operator<<(ostream & out, const Board & B){
     return out;
 }
 
-// int knightTour(Board & B){
-//     ArrayStack<int> S;
-//     return S.size();
-// }
-
 bool knightTour(Board & B){
     ArrayStack<int> S;
     Square pos = B.emptySquare();
@@ -231,29 +226,10 @@ bool knightTour(Board & B){
                     B.set(s, S.size());
                     if(B.nEmpty() == 0){
 
-                        if(B.inRange(move(pos,1))){
-                            if(B.get(move(pos,1))==1) return true; // backtracking end
-                        }
-                        if(B.inRange(move(pos,2))){
-                            if(B.get(move(pos,2))==1) return true; // backtracking end
-                        }
-                        if(B.inRange(move(pos,3))){
-                            if(B.get(move(pos,3))==1) return true; // backtracking end
-                        }
-                        if(B.inRange(move(pos,4))){
-                            if(B.get(move(pos,4))==1) return true; // backtracking end
-                        }
-                        if(B.inRange(move(pos,5))){
-                            if(B.get(move(pos,5))==1) return true; // backtracking end
-                        }
-                        if(B.inRange(move(pos,6))){
-                            if(B.get(move(pos,6))==1) return true; // backtracking end
-                        }
-                        if(B.inRange(move(pos,7))){
-                            if(B.get(move(pos,7))==1) return true; // backtracking end
-                        }
-                        if(B.inRange(move(pos,8))){
-                            if(B.get(move(pos,8))==1) return true; // backtracking end
+                        for(int i=1; i<=8; i++){
+                            if(B.inRange(move(pos,i))){
+                                if(B.get(move(pos,i))==1) return true; // backtracking end
+                            }
                         }
 
                     }
@@ -268,27 +244,3 @@ bool knightTour(Board & B){
         }
     }
 }
-
-// class Board {
-// public:
-//   Board(int u, int v);  // creates an empty mxn board (i.e. M[i][j]=0 for all i,j)
-//   Board(string filename);  // creates board from input file
-//   ~Board();             // Destructor
-//   int getm() const;                 // returns m
-//   int getn() const;                 // returns n
-//   int get(Square s) const;          // gets M[s.x][s.y]
-//   void set(Square s,int v);         // sets M[s.x][s.y]=v
-//   bool inRange(const Square &s) const;       // checks whether s is a square in B
-//   int nEmpty() const;                  // number of empty squares
-//   Square emptySquare() const;           // returns an empty square of B
-//   friend ostream& operator<<(ostream& out, const Board& B);
-// private:
-//   int m;        // number of rows
-//   int n;        // number of columns 
-//   int** M;      // matrix recording the m*n squares of the board
-// };
-// ostream& operator<<(ostream & out, const Board & B);  // prints board B
-// bool knightTour(Board & B);
-//   // Returns true if there is a knight tour, and false otherwise.
-//   // If there is a knight tour, board B is updated and contains
-//   // this knight tour
