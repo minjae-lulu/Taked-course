@@ -116,6 +116,7 @@ object MiniCInterpreter {
     case True => Result(BoolVal(true), mem)
     case False => Result(BoolVal(false), mem)
     case Const(n) => Result(IntVal(n), mem)
+    
     case Var(s) =>
       if (env.exists((a: (Var, Val)) => a._1 == Var(s))) {
         val temp = env(Var(s))
@@ -143,6 +144,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Type Error")
     }
+
     case Mul(a, b) => (eval(env, mem, a).v, eval(env, mem, b).v) match {
       case (x: IntVal, y: IntVal) => {
         val temp1 = mem.extended(x)
@@ -151,6 +153,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Type Error")
     }
+
     case Div(a, b) => (eval(env, mem, a).v, eval(env, mem, b).v) match {
       case (x: IntVal, y: IntVal) => {
         if (y.n == 0) throw UndefinedSemantics("Cannot divide by zero")
@@ -160,6 +163,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Type Error")
     }
+
     case LTEExpr(a, b) => (eval(env, mem, a).v, eval(env, mem, b).v) match {
       case (x: IntVal, y: IntVal) => {
         val temp1 = mem.extended(x)
@@ -168,6 +172,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Type Error")
     }
+
     case EQExpr(a, b) => (eval(env, mem, a).v, eval(env, mem, b).v) match {
       case (x: IntVal, y: IntVal) => {
         val temp1 = mem.extended(x)
@@ -183,6 +188,7 @@ object MiniCInterpreter {
       case (EmptyRecordVal, EmptyRecordVal) => Result(BoolVal(true), mem)
       case _ => Result(BoolVal(false), mem)
     }
+
     case Iszero(c) => eval(env, mem, c).v match {
       case (x: IntVal) => {
         val temp1 = mem.extended(x)
@@ -190,6 +196,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Type Error")
     }
+
     case Ite(c, t, f) => eval(env, mem, c).v match {
       case v: BoolVal => {
         val temp1 = mem.extended(v)
@@ -198,6 +205,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Type Error")
     }
+
     case NotExpr(expr) => eval(env, mem, expr).v match {
       case v: BoolVal => {
         val temp1 = mem.extended(v)
@@ -205,16 +213,19 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Not a bool type")
     }
+
     case Let(i, v, body) => {
       val temp = eval(env, mem, v)
       val new_mem = temp.m.extended(temp.v)
       val new_env = env + (i -> new_mem._2)
       eval(new_env, new_mem._1, body)
     }
+
     case Block(f, s) => {
       val temp1 = eval(env, mem, f)
       eval(env, temp1.m, s)
     }
+
     case Asn(v, e) => {
       val temp2 = eval(env, mem, e)
       v match {
@@ -237,9 +248,11 @@ object MiniCInterpreter {
       }
 
     }
+
     case EmptyRecordExpr => {
       Result(EmptyRecordVal, mem)
     }
+
     case RecordExpr(field, initVal, next) => {
       val init = eval(env, mem, initVal)
       val temp = init.m.extended(init.v)
@@ -250,6 +263,7 @@ object MiniCInterpreter {
         case _ => throw UndefinedSemantics("Undefined val")
       }
     }
+
     case FieldAccess(record, field) => eval(env, mem, record).v match {
       case r: RecordVal => {
         val temp = search(r, field)
@@ -257,6 +271,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("No record val")
     }
+
     case FieldAssign(record, field, new_val) => {
       val res = eval(env, mem, record)
       res.v match {
@@ -268,6 +283,7 @@ object MiniCInterpreter {
         case _ => throw UndefinedSemantics("Undefined type")
       }
     }
+
     case WhileExpr(cond, body) => eval(env, mem, cond).v match {
       case v: BoolVal => {
         if (v.b) {
@@ -279,6 +295,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Not a bool value")
     }
+
     case BeginEnd(expr) => {
       eval(env, mem, expr)
     }
@@ -286,6 +303,7 @@ object MiniCInterpreter {
     case Proc(args, expr) => {
       Result(ProcVal(args, expr, env), mem)
     }
+
     case PCallV(ftn, arg) => (eval(env, mem, ftn).v) match {
       case (x: ProcVal) => {
         val new_env_and_mem = extendMemAndEnv(x.args, env, mem, arg, arg, 0)
@@ -293,6 +311,7 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Type Error")
     }
+
     case PCallR(ftn, arg) => (eval(env, mem, ftn).v) match {
       case (x: ProcVal) => {
         val new_env = extendEnv(x.args, x.args, arg, env,0)

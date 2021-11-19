@@ -63,6 +63,7 @@ case class Block(f: Expr, s: Expr) extends Expr
 case class PCallV(ftn: Expr, arg: List[Expr]) extends Expr
 case class PCallR(ftn: Expr, arg: List[Var]) extends Expr
 case class WhileExpr(cond: Expr, body: Expr) extends Expr
+
 sealed trait RecordLike extends Expr
 case object EmptyRecordExpr extends RecordLike
 case class RecordExpr(field: Var, initVal: Expr, next: RecordLike) extends RecordLike
@@ -84,7 +85,6 @@ object MiniCInterpreter {
 
   def extendEnv(args: List[Var], index: Int, env: Env, loc: LocVal) = {
     env + (args(index) -> loc)
-
   }
 
   def extendMemAndEnv(args: List[Var], env: Env, mem: Mem, expr1: List[Expr], expr2: List[Expr], index: Int): (Env, Mem) = {
@@ -99,7 +99,6 @@ object MiniCInterpreter {
       }
     }
   }
-
 
   def extendEnv(procargs1: List[Var], procargs2: List[Var], arg: List[Var], env: Env, index: Int): Env = {
     procargs1 match {
@@ -140,16 +139,6 @@ object MiniCInterpreter {
       else {
         throw UndefinedSemantics("1")
       }
-
-
-    // case Add(l, r) => (eval(env, mem, l).v, eval(env, mem, r).v) match {
-    //   case (x: IntVal, y: IntVal) => {
-    //     val temp1 = mem.extended(x)
-    //     val temp2 = temp1._1.extended(y)
-    //     Result(IntVal(x.n + y.n), temp2._1)
-    //   }
-    //   case _ => throw UndefinedSemantics("Type Error")
-    // }
 
     case Add(l,r) => {
       val temp1 = eval(env,mem,l)
@@ -213,7 +202,7 @@ object MiniCInterpreter {
 
     case Iszero(c) => eval(env, mem, c).v match {
       case (x: IntVal) => {
-        val temp1 = mem.extended(x)
+        val temp1 = mem.extended(x)                 // extend instead of add
         Result(BoolVal(x.n == 0), temp1._1)
       }
       case _ => throw UndefinedSemantics("Type Error")
@@ -221,7 +210,7 @@ object MiniCInterpreter {
 
     case Ite(c, t, f) => eval(env, mem, c).v match {
       case v: BoolVal => {
-        val temp1 = mem.extended(v)
+        val temp1 = mem.extended(v)                 // extend instead of add and .__1 because mem is first elem
         if (v.b) eval(env, temp1._1, t)
         else eval(env, temp1._1, f)
       }
@@ -234,10 +223,11 @@ object MiniCInterpreter {
       val new_env = env + (i -> new_mem._2)
       eval(new_env, new_mem._1, body)
     }
-    case Block(f, s) => {
-      val temp1 = eval(env, mem, f)
-      eval(env, temp1.m, s)
+
+    case Proc(args, expr) => {
+      Result(ProcVal(args, expr, env), mem)
     }
+
     case Asn(v, e) => {
       val temp2 = eval(env, mem, e)
       v match {
@@ -258,42 +248,52 @@ object MiniCInterpreter {
         }
         case _ => throw UndefinedSemantics("Type Error")
       }
-
-    }
-    case EmptyRecordExpr => {
-      Result(EmptyRecordVal, mem)
     }
 
-    case RecordExpr(field, initVal, next) => {
-      val init = eval(env, mem, initVal)
-      val temp = init.m.extended(init.v)
-      val nextR = eval(env, temp._1, next)
-      nextR.v match {
-        case r: RecordVal => Result((RecordVal(field, temp._2, r)), nextR.m)
-        case EmptyRecordVal => Result((RecordVal(field, temp._2, EmptyRecordVal)), temp._1)
-        case _ => throw UndefinedSemantics("Undefined val")
-      }
+    case BeginEnd(expr) => {
+      eval(env, mem, expr)
     }
 
-    case FieldAccess(record, field) => eval(env, mem, record).v match {
-      case r: RecordVal => {
-        val temp = search(r, field)
-        Result(mem.get(temp.loc).get, mem)
-      }
-      case _ => throw UndefinedSemantics("No record val")
+    // case FieldAccess(record, field) => eval(env, mem, record).v match {
+    //   case r: RecordVal => {
+    //     val temp = search(r, field)
+    //     Result(mem.get(temp.loc).get, mem)
+    //   }
+    //   case _ => throw UndefinedSemantics("No record val")
+    // }
+
+    // case FieldAssign(record, field, new_val) => {
+    //   val res = eval(env, mem, record)
+    //   res.v match {
+    //     case r: RecordVal => {
+    //       val temp = search(r, field)
+    //       val new_value = eval(env, res.m, new_val)
+    //       Result(new_value.v, new_value.m.updated(temp.loc, new_value.v).get)
+    //     }
+    //     case _ => throw UndefinedSemantics("Undefined type")
+    //   }
+    // }
+
+    case Block(f, s) => {                         // same with other
+      val temp1 = eval(env, mem, f) 
+      eval(env, temp1.m, s)
     }
 
-    case FieldAssign(record, field, new_val) => {
-      val res = eval(env, mem, record)
-      res.v match {
-        case r: RecordVal => {
-          val temp = search(r, field)
-          val new_value = eval(env, res.m, new_val)
-          Result(new_value.v, new_value.m.updated(temp.loc, new_value.v).get)
-        }
-        case _ => throw UndefinedSemantics("Undefined type")
-      }
-    }
+    // case PCallV(ftn, arg) => eval(env, mem, ftn).v match {
+    //   case (x: ProcVal) => {
+    //     val new_env_and_mem = extendMemAndEnv(x.args, env, mem, arg, arg, 0)
+    //     eval(new_env_and_mem._1, new_env_and_mem._2, x.expr)
+    //   }
+    //   case _ => throw UndefinedSemantics("Type Error")
+    // }
+
+    // case PCallR(ftn, arg) => eval(env, mem, ftn).v match {
+    //   case (x: ProcVal) => {
+    //     val new_env = extendEnv(x.args, x.args, arg, env,0)
+    //     eval(new_env, mem, x.expr)
+    //   }
+    //   case _ => throw UndefinedSemantics("Type Error")
+    // }
 
     case WhileExpr(cond, body) => eval(env, mem, cond).v match {
       case v: BoolVal => {
@@ -306,94 +306,89 @@ object MiniCInterpreter {
       }
       case _ => throw UndefinedSemantics("Not a bool value")
     }
-    case BeginEnd(expr) => {
-      eval(env, mem, expr)
+
+    case EmptyRecordExpr => {
+      Result(EmptyRecordVal, mem)
     }
 
-    case Proc(args, expr) => {
-      Result(ProcVal(args, expr, env), mem)
-    }
+    // case RecordExpr(field, initVal, next) => {
+    //   val init = eval(env, mem, initVal)
+    //   val temp = init.m.extended(init.v)
+    //   val nextR = eval(env, temp._1, next)
+    //   nextR.v match {
+    //     case r: RecordVal => Result((RecordVal(field, temp._2, r)), nextR.m)
+    //     case EmptyRecordVal => Result((RecordVal(field, temp._2, EmptyRecordVal)), temp._1)
+    //     case _ => throw UndefinedSemantics("Undefined val")
+    //   }
+    // }
 
-    case PCallV(ftn, arg) => (eval(env, mem, ftn).v) match {
-      case (x: ProcVal) => {
-        val new_env_and_mem = extendMemAndEnv(x.args, env, mem, arg, arg, 0)
-        eval(new_env_and_mem._1, new_env_and_mem._2, x.expr)
-      }
-      case _ => throw UndefinedSemantics("Type Error")
-    }
 
-    case PCallR(ftn, arg) => (eval(env, mem, ftn).v) match {
-      case (x: ProcVal) => {
-        val new_env = extendEnv(x.args, x.args, arg, env,0)
-        eval(new_env, mem, x.expr)
-      }
-      case _ => throw UndefinedSemantics("Type Error")
-    }
+    case _ => throw UndefinedSemantics("Not Defined")
   }
 
   // def gc(env: Env, mem: Mem): Mem = {
   //   Mem(mem.m, mem.top)
   // }
 
-  // def addFromRecord(r: RecordValLike, mem: Mem, hashmem: HashMap[LocVal, Val]): HashMap[LocVal, Val] = {
-  //   r match {
-  //     case EmptyRecordVal => hashmem
-  //     case r: RecordVal => {
-  //       val new_mem = hashmem + (r.loc -> mem.get(r.loc).get)
-  //       val new_new_mem = addFromLoc(new_mem, mem, mem.get(r.loc).get)
-  //       addFromRecord(r.next, mem, new_new_mem)
-  //     }
-  //   }
-  // }
+  def addFromRecord(r: RecordValLike, mem: Mem, hashmem: HashMap[LocVal, Val]): HashMap[LocVal, Val] = {
+    r match {
+      case EmptyRecordVal => hashmem
+      case r: RecordVal => {
+        val new_mem = hashmem + (r.loc -> mem.get(r.loc).get)
+        val new_new_mem = addFromLoc(new_mem, mem, mem.get(r.loc).get)
+        addFromRecord(r.next, mem, new_new_mem)
+      }
+    }
+  }
 
-  // def addFromLoc(new_h: HashMap[LocVal, Val], mem: Mem, v: Val): HashMap[LocVal, Val] = {
-  //   v match {
-  //     case l: LocVal => {
-  //       val new_hash = new_h + (l -> mem.get(l).get)
-  //       addFromLoc(new_hash, mem, mem.get(l).get)
-  //     }
-  //     case r: RecordVal => {
-  //       addFromRecord(r, mem, new_h)
-  //     }
-  //     case p: ProcVal => {
-  //       reach(p.env, mem, new_h, p.env.keySet.toList)
-  //     }
-  //     case _ => new_h
-  //   }
-  // }
+  def addFromLoc(new_h: HashMap[LocVal, Val], mem: Mem, v: Val): HashMap[LocVal, Val] = {
+    v match {
+      case l: LocVal => {
+        val new_hash = new_h + (l -> mem.get(l).get)
+        addFromLoc(new_hash, mem, mem.get(l).get)
+      }
+      case r: RecordVal => {
+        addFromRecord(r, mem, new_h)
+      }
+      case p: ProcVal => {
+        reach(p.env, mem, new_h, p.env.keySet.toList)
+      }
+      case _ => new_h
+    }
+  }
 
-  // def reach(env: Env, mem: Mem, new_h: HashMap[LocVal, Val], vars: List[Var]): HashMap[LocVal, Val] = {
-  //   vars match {
-  //     case Nil => new_h
-  //     case ::(head, next) => {
-  //       val res = mem.get(env(head)).get
-  //       val new_hash = new_h + (env(head) -> res)
-  //       res match {
-  //         case r: RecordVal => {
-  //           val new_new_hash = addFromRecord(r, mem, new_hash)
-  //           reach(env, mem, new_new_hash, next)
-  //         }
-  //         case p: ProcVal => {
-  //           val new_new_hash = reach(p.env, mem, new_hash, p.env.keySet.toList)
-  //           reach(env, mem, new_new_hash, next)
-  //         }
-  //         case l: LocVal => {
-  //           val new_new_hash = addFromLoc(new_hash, mem, l)
-  //           reach(env, mem, new_new_hash, next)
-  //         }
-  //         case _ => reach(env, mem, new_hash, next)
-  //       }
+  def reach(env: Env, mem: Mem, new_h: HashMap[LocVal, Val], vars: List[Var]): HashMap[LocVal, Val] = {
+    vars match {
+      case Nil => new_h
+      case ::(head, next) => {
+        val res = mem.get(env(head)).get
+        val new_hash = new_h + (env(head) -> res)
+        res match {
+          case r: RecordVal => {
+            val new_new_hash = addFromRecord(r, mem, new_hash)
+            reach(env, mem, new_new_hash, next)
+          }
+          case p: ProcVal => {
+            val new_new_hash = reach(p.env, mem, new_hash, p.env.keySet.toList)
+            reach(env, mem, new_new_hash, next)
+          }
+          case l: LocVal => {
+            val new_new_hash = addFromLoc(new_hash, mem, l)
+            reach(env, mem, new_new_hash, next)
+          }
+          case _ => reach(env, mem, new_hash, next)
+        }
 
-  //     }
-  //   }
-  // }
+      }
+    }
+  }
 
-  // def gc(env: Env, mem: Mem): Mem = {
-  //   if (env.isEmpty) Mem(mem.m.empty, mem.top)
-  //   val vars = env.keySet.toList
-  //   val new_mem_hash = reach(env, mem, HashMap[LocVal, Val](), vars)
-  //   Mem(new_mem_hash, mem.top)
-  // }
+  def gc(env: Env, mem: Mem): Mem = {
+    if (env.isEmpty) Mem(mem.m.empty, mem.top)
+    val vars = env.keySet.toList
+    val new_mem_hash = reach(env, mem, HashMap[LocVal, Val](), vars)
+    Mem(new_mem_hash, mem.top)
+  }
 
   def apply(program: String): (Val, Mem) = {
     val parsed = MiniCParserDriver(program)

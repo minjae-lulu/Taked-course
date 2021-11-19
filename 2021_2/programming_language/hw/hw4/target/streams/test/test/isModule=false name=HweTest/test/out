@@ -151,6 +151,19 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- test with expected result: IntVal(0) input: let cnt = 0 in let f = proc (x) let cnt = cnt + 1 in x in let a = f ( f(1)) in cnt[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- test with expected result: IntVal(3) input: let cnt = 0 in let f = proc (x) begin cnt := cnt + 1; cnt end in let a = f (1) in let b = f (1) in a + b[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- test with expected result: IntVal(2) input: let f = proc (x) let cnt = 0 in begin cnt := cnt + 1; cnt end in let a = f (1) in let b = f (1) in a + b[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- test with expected result: IntVal(12) input: let f = proc (x) proc (y) begin x := x + 1; x - y end in f (44) (33) *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  hw4.MiniCInterpreter$UndefinedSemantics: Undefined Semantics: 1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at hw4.MiniCInterpreter$.eval(Hw4.scala:140)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at hw4.MiniCInterpreter$.eval(Hw4.scala:144)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at hw4.MiniCInterpreter$.eval(Hw4.scala:232)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at hw4.MiniCInterpreter$.eval(Hw4.scala:278)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at hw4.MiniCInterpreter$.apply(Hw4.scala:395)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at HweTest.$anonfun$new$2(Hw4Test.scala:148)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.OutcomeOf.outcomeOf(OutcomeOf.scala:85)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.OutcomeOf.outcomeOf$(OutcomeOf.scala:83)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- test with expected result: IntVal(4) input: let x = 3 in let f = proc (x) proc (y) begin x := 4; y end in f <x> <x>[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- test with expected result: IntVal(2) input: let x = 3 in let f = proc (x) proc (y) begin x := 4; y end in f <x> (2)[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- test with expected result: IntVal(4) input: let r = {x:=1,y:=3} in let z = r.x in let w = r.y in z + w[0m[0m
