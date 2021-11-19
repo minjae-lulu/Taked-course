@@ -1,150 +1,199 @@
-import chisel3.iotesters.PeekPokeTester
-import org.scalatest._
+/*
+ * Homework 2, CSE261 Computer Architecture 
+ * 2021 Fall
+ * UNIST
+ * Hyungon Moon
+ */
+
+package Hw2
 import chisel3._
 import chisel3.util._
-import Hw2._
 
 
-
-class ALUTest extends FlatSpec with Matchers {
-
-  "ALU" should "compute" in {
-    chisel3.iotesters.Driver( () => new ALU()) { dut =>
-      new PeekPokeTester(dut) {
-        val r = new scala.util.Random()
-        r.setSeed(System.currentTimeMillis())
-        val inputs = List.range(0,20).map((i) => {
-          val v1 = r.nextLong()
-          val v2 = r.nextLong()
-          val pair = (v1, v2)
-          pair
-        })
-        val ctrls = List(0,1,2,6)
-        val tests = (ctrls.map((c) => {
-          
-          inputs.map((p) => {
-            val ctrl: Long = c
-            val res: Long = (ctrl match {
-              case 0 => p._1 & p._2
-              case 1 => p._1 | p._2
-              case 2 => (p._1 + p._2)
-              case 6 => (p._1 - p._2)
-              case _ => throw new Exception("Unknown ctrl")
-            })
-            Array(ctrl, p._1, p._2, res)
-          })
-        }).flatten ++ List(
-          Array(2, 0x1, 0xfffffffffffffffeL, -1),
-          Array(2, 0x1, 0xffffffffffffffffL, 0)
-        )).map(e => {
-          //Array(e(0).U(5.W), e(1).S(64.W), e(2).S(64.W), e(3).S(64.W))
-          e
-        }) 
-
-        tests.foreach((t) => {
-          poke(dut.io.ctrl, t(0))
-          poke(dut.io.a, t(1))
-          poke(dut.io.b, t(2))
-          expect(dut.io.res, t(3).S(64.W)(63,0))
-          
-          
-        })
-
-      }
-    } should be (true)
-  }
+object OpCode {
+  val addi  = "b0010011".U
+  val add   = "b0110011".U
+  val sd    = "b0100011".U
+  val ld    = "b0000011".U
+  val beq   = "b1100011".U
 }
 
-class ImmGenTest extends FlatSpec with Matchers {
-  "ImmGen" should "" in {
-    chisel3.iotesters.Driver( () => new ImmGen()) { dut =>
-      new PeekPokeTester(dut) {
-        val tests = List(
-          List("x12341223".U, "x124".U), //sd
-          List("xabc41223".U, "xFFFFFFFFFFFFFAA4".U), //sd
-          List("x02341263".U, "x12".U), //beq
-          List("x92341263".U, "xFFFFFFFFFFFFF892".U), //beq 
-          List("xabc41263".U, "xFFFFFFFFFFFFF952".U), //beq
-          List("x12341213".U, "x123".U), //addi
-        )
-        tests.foreach((t) => {
-          poke(dut.io.insn, t(0))
-          expect(dut.io.imm, t(1), msg=s"input: ${t(0).toString(16)}")
-        })
-      }
-    } should be (true)
-  }
+object AluOp {
+  val ld = "b00".U
+  val sd = "b00".U
+  val beq = "b01".U
+  val reg = "b10".U
 }
 
-class ALUControlTest extends FlatSpec with Matchers {
-  "ImmGen" should "" in {
-    chisel3.iotesters.Driver( () => new ALUControl()) { dut =>
-      new PeekPokeTester(dut) {
-        val tests = List(
-          List(AluOp.ld, AluCtrl.add)
-          ,List(AluOp.sd, AluCtrl.add)
-          ,List(AluOp.beq, AluCtrl.sub)
-          ,List(AluOp.reg, AluCtrl.add)
-        )
-        tests.foreach((t) => {
-          poke(dut.io.aluOp, t(0))
-          poke(dut.io.funct3, 0.U)
-          poke(dut.io.funct7, 0.U)
-          expect(dut.io.aluCtrl, t(1), msg=s"input: ${t(0).toString(16)}")
-        })
-      }
-    } should be (true)
+object AluCtrl {
+  val and = "b0000".U(4.W)
+  val or  = "b0001".U(4.W)
+  val add = "b0010".U(4.W)
+  val sub = "b0110".U(4.W)
+}
+
+/*
+Task 1: ALU
+*/
+
+class ALU extends Module {
+  val io = IO(new Bundle {
+    val ctrl = Input(UInt(4.W))
+    val a = Input(UInt(64.W))
+    val b = Input(UInt(64.W))
+    val res = Output(UInt(64.W))
+    val zero = Output(Bool())
+  })
+  
+  /* Your code starts here*/
+  io.res := 0.U
+  io.zero := true.B
+
+  when(io.a >= io.b && io.a <= io.b){
+    io.zero := true.B
+  }.otherwise{
+    io.zero := false.B
+  }
+
+  switch(io.ctrl){
+    is(AluCtrl.and) {io.res := io.a & io.b}
+    is(AluCtrl.or) {io.res := io.a | io.b}
+    is(AluCtrl.add) {io.res := io.a + io.b}
+    is(AluCtrl.sub) {io.res := io.a - io.b}
+  }
+  
+  /*Your code ends here */
+}
+
+/*
+Task 2: ImmGen
+*/
+
+class ImmGen extends Module {
+  val io = IO(new Bundle {
+    val insn = Input(UInt(32.W))
+    val imm = Output(UInt(64.W))
+  })
+
+  /* Your code starts here*/
+
+  io.imm := 0.U
+  //io.imm := Cat(io.insn(3,1),io.insn(22,10))
+
+  val opco = io.insn(6,0)
+  val inst = io.insn
+
+  switch(opco){
+    is(OpCode.addi) { io.imm := Cat( Fill(53, inst(31)), inst(31,20)) }
+    is(OpCode.add)  { io.imm := Cat( Fill(53, inst(31)), inst(31,20)) }
+    is(OpCode.sd)   { io.imm := Cat( Fill(53, inst(31)), inst(31,25), inst(11,7)) }
+    is(OpCode.ld)   { io.imm := Cat( Fill(53, inst(31)), inst(31,20)) }
+    is(OpCode.beq)  { io.imm := Cat( Fill(53, inst(31)), inst(31), inst(7), inst(30,25), inst(11,8)) }
+    
+  }
+  
+
+  /*Your code ends here */
+
+}
+
+/*
+Task 3: ALUControl
+*/
+
+class ALUControl extends Module {
+  val io = IO(new Bundle {
+    val aluOp = Input(UInt(2.W))
+    val funct3 = Input(UInt(3.W))
+    val funct7 = Input(UInt(7.W))
+    val aluCtrl = Output(UInt(4.W))
+  })
+
+  /* Your code starts here*/
+  io.aluCtrl := 0.U
+
+  when(io.aluOp === 0.U ){
+    io.aluCtrl := 2.U
+  }.elsewhen(io.aluOp === 1.U){
+    io.aluCtrl := 6.U
+  }.elsewhen(io.aluOp === 2.U){
+    io.aluCtrl := 2.U
+  }
+
+
+  /*Your code ends here */
+
+}
+
+/*
+Task 4: Control
+*/
+
+class Control extends Module {
+  val io = IO(new Bundle{
+    val in = Input(UInt(7.W))
+    val write_reg = Output(Bool())
+    val aluSrcFromReg = Output(Bool())
+    val memWrite = Output(Bool())
+    val memToReg = Output(Bool())
+    val aluOp = Output(UInt(2.W))
+    val branch = Output(Bool())
+  })
+/* Your code starts here*/
+  io.aluOp := 0.U
+  io.write_reg := false.B
+  io.aluSrcFromReg := false.B
+  io.memWrite := false.B
+  io.memToReg := false.B
+  io.branch := false.B
+
+
+switch(io.in){
+  is(OpCode.addi){
+    io.write_reg := true.B 
+    io.aluSrcFromReg := false.B //
+    io.memWrite := false.B 
+    io.memToReg := false.B 
+    io.aluOp := "b10".U
+    io.branch := false.B 
+  }
+
+  is(OpCode.add){
+    io.write_reg := true.B 
+    io.aluSrcFromReg := true.B
+    io.memWrite := false.B 
+    io.memToReg := false.B 
+    io.aluOp := "b10".U
+    io.branch := false.B 
+  }
+
+  is(OpCode.sd){
+    io.write_reg := false.B 
+    io.aluSrcFromReg := false.B
+    io.memWrite := true.B 
+    io.memToReg := false.B 
+    io.aluOp := "b00".U 
+    io.branch := false.B 
+  }
+
+  is(OpCode.ld){
+    io.write_reg := true.B 
+    io.aluSrcFromReg := false.B
+    io.memWrite := false.B 
+    io.memToReg := true.B 
+    io.aluOp := "b00".U 
+    io.branch := false.B 
+  }
+
+  is(OpCode.beq){
+    io.write_reg := false.B 
+    io.aluSrcFromReg := false.B
+    io.memWrite := false.B 
+    io.memToReg := false.B 
+    io.aluOp := "b01".U 
+    io.branch := true.B 
   }
 }
-class ControlTest extends FlatSpec with Matchers {
-  "ImmGen" should "" in {
-    chisel3.iotesters.Driver( () => new Control()) { dut =>
-      new PeekPokeTester(dut) {
-          var inputStr = "addi"
-          poke(dut.io.in, OpCode.addi)
-          expect(dut.io.write_reg,      true.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluSrcFromReg,  false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.memWrite,       false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.memToReg,       false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluOp,          AluOp.reg, msg=s"input: ${inputStr}")
-          expect(dut.io.branch,         false.B, msg=s"input: ${inputStr}")
-
-          inputStr = "add"
-          poke(dut.io.in, OpCode.add)
-          expect(dut.io.write_reg,      true.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluSrcFromReg,  true.B, msg=s"input: ${inputStr}")
-          expect(dut.io.memWrite,       false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.memToReg,       false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluOp,          AluOp.reg, msg=s"input: ${inputStr}")
-          expect(dut.io.branch,         false.B, msg=s"input: ${inputStr}")
-
-          inputStr = "sd"
-          poke(dut.io.in, OpCode.sd)
-          expect(dut.io.write_reg,      false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluSrcFromReg,  false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.memWrite,       true.B, msg=s"input: ${inputStr}")
-          //expect(dut.io.memToReg,       false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluOp,          AluOp.sd, msg=s"input: ${inputStr}")
-          expect(dut.io.branch,         false.B, msg=s"input: ${inputStr}")
-
-          inputStr = "ld"
-          poke(dut.io.in, OpCode.ld)
-          expect(dut.io.write_reg,      true.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluSrcFromReg,  false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.memWrite,       false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.memToReg,       true.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluOp,          AluOp.ld, msg=s"input: ${inputStr}")
-          expect(dut.io.branch,         false.B, msg=s"input: ${inputStr}")
-
-          inputStr = "beq"
-          poke(dut.io.in, OpCode.beq)
-          expect(dut.io.write_reg,      false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluSrcFromReg,  false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.memWrite,       false.B, msg=s"input: ${inputStr}")
-          //expect(dut.io.memToReg,       false.B, msg=s"input: ${inputStr}")
-          expect(dut.io.aluOp,          AluOp.beq, msg=s"input: ${inputStr}")
-          expect(dut.io.branch,         true.B, msg=s"input: ${inputStr}")
-      }
-    } should be (true)
-  }
+  /*Your code ends here */
+ 
 }

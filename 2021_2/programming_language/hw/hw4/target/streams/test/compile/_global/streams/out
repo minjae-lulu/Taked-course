@@ -1,0 +1,19 @@
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw4\src\test\scala\Hw4Test.scala:96:24: not found: value fibo[0m
+[0m[[0m[31merror[0m] [0m[0m      ,(s"let fibo = ${fibo} in fibo (0)",IntVal(0))[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw4\src\test\scala\Hw4Test.scala:97:24: not found: value fibo[0m
+[0m[[0m[31merror[0m] [0m[0m      ,(s"let fibo = ${fibo} in fibo (1)",IntVal(1))[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw4\src\test\scala\Hw4Test.scala:98:24: not found: value fibo[0m
+[0m[[0m[31merror[0m] [0m[0m      ,(s"let fibo = ${fibo} in fibo (2)",IntVal(1))[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw4\src\test\scala\Hw4Test.scala:99:24: not found: value fibo[0m
+[0m[[0m[31merror[0m] [0m[0m      ,(s"let fibo = ${fibo} in fibo (3)",IntVal(2))[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw4\src\test\scala\Hw4Test.scala:100:24: not found: value fibo[0m
+[0m[[0m[31merror[0m] [0m[0m      ,(s"let fibo = ${fibo} in fibo (4)",IntVal(3))[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mD:\coding\Taked-course\2021_2\programming_language\hw\hw4\src\test\scala\Hw4Test.scala:101:24: not found: value fibo[0m
+[0m[[0m[31merror[0m] [0m[0m      ,(s"let fibo = ${fibo} in fibo (10)",IntVal(55))[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m6 errors found[0m

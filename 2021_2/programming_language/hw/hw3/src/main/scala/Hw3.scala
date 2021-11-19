@@ -79,16 +79,7 @@ object MiniScalaInterpreter {
       else{
         throw UndefinedSemantics("error occur")
       }
-    
-    
-    // case Add(l, r) => (eval(env,mem,l).v, eval(env,mem,r).v) match {
-    //   case (x: IntVal, y: IntVal) => {
-    //     val temp1 = mem.add(mem.top+1,x)
-    //     val temp2 = mem.add(temp1.top+1,y)
-    //     Result(IntVal(x.n + y.n), temp2)
-    //   }
-    //   case _ => throw UndefinedSemantics("Type error occur")
-    // }
+
 
     case Add(l,r) => {
       val temp1 = eval(env,mem,l)
