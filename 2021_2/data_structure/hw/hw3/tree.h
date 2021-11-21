@@ -67,73 +67,100 @@ bool Tree<E>::empty() const
 
 template <typename E>
 Tree<E>::~Tree(){
-  { _n = 0; }
+  _n = 0;
   // ????
 }
 
-template<typename E> 
-typename Tree<E>::Position Tree<E>::root() const
-  {return Tree<E>::Position(_root);}
-  
 template <typename E>
-typename Tree<E>::Position Tree<E>::addRoot(const E & e) { 
-  if( empty() == false )
+typename Tree<E>::Position Tree<E>::root() const
+  { return Tree<E>::Position(_root); }
+
+template <typename E>
+typename Tree<E>::Position Tree<E>::addRoot(const E &e){
+  if (empty() == false)
     throw runtime_error("root is already exist");
   else{
-    _root = new Node; 
-    _root -> elt = e;
-    _n=1;
+    _root = new Node;
+    _root->elt = e;
+    _n = 1;
   }
 }
 
 template <typename E>
-typename Tree<E>::Position Tree<E>::insertAt(const Position & p, const E & e){
+typename Tree<E>::Position Tree<E>::insertAt(const Position &p, const E &e) {
   // ????
   // Node *nn = new Node;
   // nn -> parent = p.v;
   // nn -> elt = e;
   // p.v -> children.push_back(Position(nn));
   // _n += 1;
-}
 
-template <typename E>
-typename Tree<E>::PositionList Tree<E>:: positions() const{
-  // ???
-}
-
-template <typename E>
-void Tree<E>::print(){
-  // ???
-}
-
-template <typename E>
-Tree<E>::Tree(string filename){
-  // ????
-}
+  Node* v = p.v;
+  v -> elt = e;
+  v -> children = new PositionList;
+  v -> children -> parent = v;
+  _n++;
   
-template <typename E>
-void Tree<E>::preorder(Position p, PositionList& pl) const{
-  // ????
 }
 
-
-
+template <typename E>
+typename Tree<E>::PositionList Tree<E>::positions() const {
+  PositionList pl;
+  preorder(root(), pl);
+  return PositionList(pl);
+}
 
 template <typename E>
-E& Tree<E>::Position::operator*()
-  { return v -> elt; }
+void Tree<E>::print() {
+  // ???
+  // Position _root = root();
+  // cout << _root;
+  // PositionList ch = _root.positions();
+  // for (Iterator q = ch.begin(); q != ch.end(); ++q)
+  // {
+  //   cout << " ";
+  //   cout << *q;
+  // }
+}
 
-template<typename E> 
-typename Tree<E>::Position Tree<E>::Position::parent() const{
-  if(v-> parent == NULL)
+template <typename E>
+Tree<E>::Tree(string filename) {
+  // ????
+  // ifstream input_file(filename);
+  //   int num;
+  //   input_file >> num;
+  //   m = num;
+  //   input_file >> num;
+  //   n = num;
+}
+
+template <typename E>
+void Tree<E>::preorder(Position p, PositionList &pl) const{
+//   // ????
+//   pl.push_back(p);
+//   for{ // maybe using iterator
+//     if (p.v -> children != NULL){
+//       preorder(p.v-> children, pl)
+//     }
+//   }
+}
+
+template <typename E>
+E &Tree<E>::Position::operator*() {
+  return v->elt;
+}
+
+template <typename E>
+typename Tree<E>::Position Tree<E>::Position::parent() const {
+  if (v->parent == NULL)
     throw runtime_error("root has no parent.");
   else
-    return Tree<E>::Position(v -> parent);
+    return Tree<E>::Position(v->parent);
 }
 
-template<typename E> 
+template <typename E>
 typename Tree<E>::PositionList Tree<E>::Position::children() const
-  {return PositionList(v -> children);}
+  { return PositionList(v->children); }
 
 template <typename E>
 bool Tree<E>::Position::isRoot() const
@@ -143,7 +170,11 @@ template <typename E>
 bool Tree<E>::Position::isLeaf() const
   { return v->children.empty(); }
 
+
+
+
+int vertexCover(const Tree<int> & T){
+  // for test3
+}
+
 #endif
-
-
-
