@@ -56,125 +56,211 @@ private:
 int vertexCover(const Tree<int> & T);   // weight of a minimum vertex cover of T
 
 // ------------------------------- TYPE YOUR CODE BELOW ----------------------------------------
+#define EXIT_SUCCESS 0
+#include <stdexcept>
+#include <vector>
+#include <algorithm>
 
 template <typename E>
-int Tree<E>::size() const
-  { return _n; }
-
-template <typename E>
-bool Tree<E>::empty() const
-  { return _n == 0; }
-
-template <typename E>
-Tree<E>::~Tree(){
-  _n = 0;
-  // ????
-}
-
-template <typename E>
-typename Tree<E>::Position Tree<E>::root() const
-  { return Tree<E>::Position(_root); }
-
-template <typename E>
-typename Tree<E>::Position Tree<E>::addRoot(const E &e){
-  if (empty() == false)
-    throw runtime_error("root is already exist");
-  else{
-    _root = new Node;
-    _root->elt = e;
-    _n = 1;
-  }
-}
-
-template <typename E>
-typename Tree<E>::Position Tree<E>::insertAt(const Position &p, const E &e) {
-  // ????
-  // Node *nn = new Node;
-  // nn -> parent = p.v;
-  // nn -> elt = e;
-  // p.v -> children.push_back(Position(nn));
-  // _n += 1;
-
-  Node* v = p.v;
-  v -> elt = e;
-  v -> children = new PositionList;
-  v -> children -> parent = v;
-  _n++;
-  
-}
-
-template <typename E>
-typename Tree<E>::PositionList Tree<E>::positions() const {
-  PositionList pl;
-  preorder(root(), pl);
-  return PositionList(pl);
-}
-
-template <typename E>
-void Tree<E>::print() {
-  // ???
-  // Position _root = root();
-  // cout << _root;
-  // PositionList ch = _root.positions();
-  // for (Iterator q = ch.begin(); q != ch.end(); ++q)
-  // {
-  //   cout << " ";
-  //   cout << *q;
-  // }
-}
-
-template <typename E>
-Tree<E>::Tree(string filename) {
-  // ????
-  // ifstream input_file(filename);
-  //   int num;
-  //   input_file >> num;
-  //   m = num;
-  //   input_file >> num;
-  //   n = num;
-}
-
-template <typename E>
-void Tree<E>::preorder(Position p, PositionList &pl) const{
-//   // ????
-//   pl.push_back(p);
-//   for{ // maybe using iterator
-//     if (p.v -> children != NULL){
-//       preorder(p.v-> children, pl)
-//     }
-//   }
-}
-
-template <typename E>
-E &Tree<E>::Position::operator*() {
+E& Tree<E>::Position::operator*() // get element
+{
   return v->elt;
 }
 
 template <typename E>
-typename Tree<E>::Position Tree<E>::Position::parent() const {
-  if (v->parent == NULL)
-    throw runtime_error("root has no parent.");
-  else
-    return Tree<E>::Position(v->parent);
+typename Tree<E>::Position Tree<E>::Position::parent() const // get parent
+{
+  if(isRoot())
+    throw runtime_error("It is root node.");
+
+  return Tree<E>::Position(v->parent);
 }
 
 template <typename E>
-typename Tree<E>::PositionList Tree<E>::Position::children() const
-  { return PositionList(v->children); }
+typename Tree<E>::PositionList Tree<E>::Position::children() const //get node's children
+{
+  return v->children;
+}
 
 template <typename E>
-bool Tree<E>::Position::isRoot() const
-  { return v->parent == NULL; }
+bool Tree<E>::Position::isRoot() const // root node?
+{
+  return v->parent == NULL;
+}
 
 template <typename E>
-bool Tree<E>::Position::isLeaf() const
-  { return v->children.empty(); }
+bool Tree<E>::Position::isLeaf() const // is it a leaf?
+{
+  return v->children.empty();
+}
 
+template <typename E>
+int Tree<E>::size() const // number of nodes
+{
+  return _n;
+}
 
+template <typename E>
+bool Tree<E>::empty() const // is the tree empty?
+{
+  return _n == 0;
+}
 
+template <typename E>
+typename Tree<E>::Position Tree<E>::root() const // get the root
+{
+  return Tree<E>::Position(_root);
+}
 
-int vertexCover(const Tree<int> & T){
-  // for test3
+template <typename E>
+typename Tree<E>::Position Tree<E>::addRoot(const E & e) // add a root containing e to an empty tree
+{
+  if(!empty())
+    throw runtime_error("Tree is empty.");
+
+  Tree<E>::Node* node = new Tree<E>::Node();
+  node->elt = e;
+
+  Tree<E>::Position pos(node);
+  
+  _root = node;
+  _n = 1;
+
+  return pos;
+}
+
+template <typename E>
+typename Tree<E>::Position Tree<E>::insertAt(const Position & p, const E & e) // insert a child of the node at position p 
+{
+  Tree<E>::Node* node = new Tree<E>::Node();
+  node->elt = e;
+  node->parent = p.v;
+
+  Tree<E>::Position pos(node);
+  p.v->children.push_back(pos);
+
+  _n += 1;
+
+  return pos;
+}
+
+template <typename E>
+typename Tree<E>::PositionList Tree<E>::positions() const // get positions of all the nodes in preorder
+{
+  Tree<E>::PositionList pl;
+  preorder(_root, pl);
+
+  return pl;
+}
+
+template <typename E>
+void Tree<E>::print() // print elements in preorder in standard output
+{
+  Tree<E>::PositionList pl = positions();
+  for(Iterator itr = pl.begin(); itr != pl.end(); itr++)
+    cout << itr->v->elt << " ";
+  cout << endl;
+}
+
+template <typename E>
+Tree<E>::Tree(string filename) // constructs a tree from a file
+{
+  _n = 0;
+  _root = NULL;
+
+  ifstream is(filename);
+  if(!is.is_open())
+    throw runtime_error("File is not exist.");
+
+  int size = 0;
+  is >> size;
+
+  struct Input // input structure
+  {
+    int seq;
+    E elt;
+    int parent;
+
+    bool operator<(const Input& b) // for sorting
+    {
+      if(this->parent == b.parent) // if same parent
+        return this->seq < b.seq; // lager seq plaecs back
+
+      return this->parent < b.parent; // lager parent plaecs back
+    }
+  };
+
+  vector<Input> inputVct;
+  for(int i = 0; i < size; i++) // read file
+  {
+    Input input;
+    is >> input.seq >> input.elt >> input.parent;
+    inputVct.push_back(input);
+  }
+
+  sort(inputVct.begin(), inputVct.end());
+
+  vector<Position> posVct(size);
+  for(int i = 0; i < size; i++) // add node
+  {
+    if(i == 0)
+    {
+      Position pos = addRoot(inputVct[i].elt);
+      posVct[inputVct[i].seq] = pos;
+    }
+    else
+    {
+      Position pos = insertAt(posVct[inputVct[i].parent], inputVct[i].elt);
+      posVct[inputVct[i].seq] = pos;
+    }
+  }
+
+  is.close();
+}
+
+template <typename E>
+Tree<E>::~Tree() // Destructor
+{
+  Tree<E>::PositionList pl = positions();
+  for(Iterator itr = pl.begin(); itr != pl.end(); itr++)
+    delete itr->v;
+}
+
+template <typename E>
+void Tree<E>::preorder(Position p, PositionList& pl) const // preorder utility
+{
+  pl.push_back(p);
+
+  PositionList ch = p.children();
+  for(Iterator itr = ch.begin(); itr != ch.end(); itr++)
+    preorder(*itr, pl);
+}
+
+int dp(const Tree<int>::Position& pos, const int flag)
+{
+  int ret = 0;
+
+  if(flag == 0)
+  {
+    Tree<int>::PositionList ch = pos.children();
+    for(Tree<int>::Iterator itr = ch.begin(); itr != ch.end(); itr++)
+      ret += dp(*itr, 1);
+  }
+  else
+  {
+    Tree<int>::Position& p = const_cast<Tree<int>::Position&>(pos);
+    ret += *p;
+    Tree<int>::PositionList ch = pos.children();
+    for(Tree<int>::Iterator itr = ch.begin(); itr != ch.end(); itr++)
+      ret += min(dp(*itr, 0), dp(*itr, 1));
+  }
+
+  return ret;
+}
+
+int vertexCover(const Tree<int> & T)
+{
+  return min(dp(T.root(), 0), dp(T.root(), 1));
 }
 
 #endif

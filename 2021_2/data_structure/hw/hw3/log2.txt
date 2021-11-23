@@ -1,0 +1,30 @@
+----------------------- Starting test.cpp ----------------------- 
+Create a tree T by inserting elements one by one.
+T.print()
+write T.print() into a string s
+Result of T.print():
+"10 20 40 50 70 80 30 60 "
+Desired result:
+"10 20 40 50 70 80 30 60"
+SUCCESS
+
+Construct T5 from file instance/instance5.in
+write T5.print() into a string s
+Result of T5.print():
+"83 86 15 21 27 59 26 35 92 26 "
+Desired result:
+"83 86 15 21 27 59 26 35 92 26"
+SUCCESS
+
+Construct the tree of strings T8 from file instance/instance8.in
+SUCCESS: root is "This"
+SUCCESS: last node is "tree."
+SUCCESS: parent of last node is "a"
+write T8.print() into a string s
+Result of T8.print():
+"This sentence is stored in a tree. "
+Desired result:
+"This sentence is stored in a tree."
+SUCCESS
+
+----------------------- Completed test.cpp ----------------------- 

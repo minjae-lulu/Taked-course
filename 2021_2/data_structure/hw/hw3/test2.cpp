@@ -51,7 +51,7 @@ int main(){
   T5.print();
   fclose (stdout);
   freopen ("/dev/tty", "a", stdout);
-  infile=ifstream("temp.txt");
+  infile.open("temp.txt");
   getline(infile, s);
   infile.close();
   
