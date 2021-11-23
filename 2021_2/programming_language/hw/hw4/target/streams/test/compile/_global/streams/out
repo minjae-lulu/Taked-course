@@ -1,4 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0mD:\local_coding\Taked-course\2021_2\programming_language\hw\hw4\src\test\scala\Hw4Test.scala:139:29: value gc is not a member of object hw4.MiniCInterpreter[0m
+[0m[[0m[31merror[0m] [0m[0mD:\local_coding\Taked-course\2021_2\programming_language\hw\hw4\src\test\scala\Hw4Test.scala:141:29: value gc is not a member of object hw4.MiniCInterpreter[0m
 [0m[[0m[31merror[0m] [0m[0m    assert(MiniCInterpreter.gc(a._1, a._2) === a._3)[0m
 [0m[[0m[31merror[0m] [0m[0m                            ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
