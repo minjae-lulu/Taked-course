@@ -47,6 +47,8 @@ vector<string> Dijkstra(Graph &G, Graph::Vertex s, Graph::Vertex t)
         prevIdx[nextIdx] = curIdx; // save visited point 
       }
     }
+
+    
   }
 
   // save shortest path
