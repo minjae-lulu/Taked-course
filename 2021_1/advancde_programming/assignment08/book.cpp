@@ -1,4 +1,4 @@
-//20161190 leeminjae it is book.cppfile
+// it is book.cppfile
 #include "book.h"
 #include <iostream>
 #include <string>

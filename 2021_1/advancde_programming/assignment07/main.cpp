@@ -1,4 +1,4 @@
-//20161190 leeminjae
+// 
 // I had an error that the linker did not terminate normally.
 //There was no error before dividing one file into three, but when dividing the file into three, the linker does not work well.
 //But the object file is well made, and the implementation works without a hitch.

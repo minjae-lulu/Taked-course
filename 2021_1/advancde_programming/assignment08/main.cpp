@@ -1,4 +1,4 @@
-//20161190 leeminjae It loads several header files and executes main.cpp.
+//It loads several header files and executes main.cpp.
 #include <iostream>
 #include <string>
 #include <cstddef>

@@ -1,4 +1,4 @@
-//20161190 leeminjae
+
 //I use array and sort() find big value. I use clear(), ignore() 
 
 #include <iostream>

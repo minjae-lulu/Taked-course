@@ -1,4 +1,4 @@
-// 20161190 leeminjae this is matrix_2_2.cpp file
+//  this is matrix_2_2.cpp file
 #include "matrix_2_2.h"
 #include <iomanip> // for layout printing (setw)
 using namespace std;

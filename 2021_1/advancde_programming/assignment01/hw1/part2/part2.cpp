@@ -1,4 +1,4 @@
-/* 20161190 leeminjae
+/* 
  I use while(1) want to receive until two valid values. if two valid values
  receive calcaulate perfect square. (using cmath and for loop)
 */ 

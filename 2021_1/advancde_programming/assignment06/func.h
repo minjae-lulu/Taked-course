@@ -1,4 +1,4 @@
-//20161190 leeminjae it has prototype function and struct.
+//it has prototype function and struct.
 #ifndef FUNC_H
 #define FUNC_H
 

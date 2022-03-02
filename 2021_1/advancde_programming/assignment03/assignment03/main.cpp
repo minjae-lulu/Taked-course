@@ -1,4 +1,4 @@
-// 20161190 leeminjae 
+// 
 // using cin.eof() recieve value
 // 1. Daily highs: output is 24's highest val. using for, do while
 // 2. Sliding window 24h av: for -12 +11 average, i divide when start and end reigon. and calculate sum

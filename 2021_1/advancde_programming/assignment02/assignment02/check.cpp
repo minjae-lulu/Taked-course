@@ -1,4 +1,4 @@
-// 20161190 leeminjae. check.cpp contains a main method and does unit testing. 
+// check.cpp contains a main method and does unit testing. 
 // it include functions.h and define check_f and check_p for unit testing.
 // If all unit test passed, cout all test passed.
 

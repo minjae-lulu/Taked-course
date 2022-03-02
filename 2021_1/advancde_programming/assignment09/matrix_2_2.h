@@ -1,4 +1,4 @@
-//20161190 leeminjae this is matrix_2_2.h file
+// this is matrix_2_2.h file
 #ifndef MATRIX_2_2_h
 #define MATRIX_2_2_h
 #include <iostream>

@@ -1,4 +1,4 @@
-//20161190 leeminjae assignment04
+// assignment04
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>

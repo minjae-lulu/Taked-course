@@ -1,4 +1,4 @@
-// 20161190 leeminjae. i contains a factorial function and a probability function.
+//  i contains a factorial function and a probability function.
 // factorial function define using for loop 1 to n.
 // probability function define using factorial and pow() from cmath library.
 

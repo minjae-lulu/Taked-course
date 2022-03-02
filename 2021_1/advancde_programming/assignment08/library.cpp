@@ -1,4 +1,4 @@
-//20161190 leeminjae it is library.cpp file
+// it is library.cpp file
 #include "library.h"
 #include "book.h"
 #include "person.h"

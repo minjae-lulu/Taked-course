@@ -1,4 +1,4 @@
-//20161190 leeminjae it is person header file
+//it is person header file
 #ifndef PERSON_H
 #define PERSON_H
 

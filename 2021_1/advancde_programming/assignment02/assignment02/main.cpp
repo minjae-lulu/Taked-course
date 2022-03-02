@@ -1,4 +1,4 @@
-// 20161190 leeminjae / include iomanip to align lines, and header files to use functions. 
+// include iomanip to align lines, and header files to use functions. 
 // After receving the integer k value, the probability was calculated using values from 1 to k 
 
 

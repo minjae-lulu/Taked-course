@@ -1,4 +1,4 @@
-// 20161190 leeminjae
+//
 #include <iostream>
 #include <vector>
 #include <algorithm>

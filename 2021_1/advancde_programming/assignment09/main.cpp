@@ -1,4 +1,4 @@
-// 20161190 leeminjae this is main.cpp
+//  this is main.cpp
 #include <iostream>
 #include "matrix_2_2.h"
 using namespace std;

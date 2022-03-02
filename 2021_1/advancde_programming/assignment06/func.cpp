@@ -1,4 +1,4 @@
-//20161190 leeminjae 
+// 
 // .cpp file has functions. and have #include "func.h" 
 #include "func.h"
 #include <iostream>

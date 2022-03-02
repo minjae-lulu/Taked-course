@@ -1,4 +1,4 @@
-//20161190 leeminjae it is book header file
+// it is book header file
 #ifndef BOOK_H
 #define BOOK_H
 

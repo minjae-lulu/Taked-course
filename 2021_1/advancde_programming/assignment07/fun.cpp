@@ -1,4 +1,4 @@
-//20161190 leeminjae
+//
 // i define funcion at fun.cpp file 
 #include "fun.h"
 #include <iostream>

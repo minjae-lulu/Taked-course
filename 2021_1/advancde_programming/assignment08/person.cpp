@@ -1,4 +1,4 @@
-//20161190 leeminjae it is person.cpp file
+// it is person.cpp file
 #include "person.h"
 #include <iostream>
 #include <cstddef>

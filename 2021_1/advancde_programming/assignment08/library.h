@@ -1,4 +1,4 @@
-//20161190 leeminjae it is library header file
+// it is library header file
 #ifndef LIBRARY_H
 #define LIBRARY_H
 

@@ -1,4 +1,4 @@
-// 20161190 leeminjae
+//
 // 1. define funtion mean that can ignore nan value so i can calculate mean value correctly
 // 2. Define function maximum value to find max value in array. temp value is negative ans 
 // Nan value is consider 0, so too consider arr[i] != 0. and return max value
