@@ -16,34 +16,16 @@ device = 'cuda:0'
 
 class MVDataset(Dataset):
     def __init__(self, method=None):
-        self.root = './datasets/toothbrush/' #Change this path
+        self.root = '/content/gdrive/MyDrive/CSE48001/ass1/datasets/toothbrush/' #Change this path
         self.x_data = []
         self.y_data = []
 
         if method == 'train':
-            self.root = './datasets/toothbrush/'  #add
             self.root = self.root + 'train/good/'
             self.img_path = sorted(glob(self.root + '*.png'))
  
         elif method == 'test':
-            self.root = './datasets/toothbrush/' #Change this path
             self.root = self.root + 'test/defective/'
-            self.img_path = sorted(glob(self.root + '*.png'))
-        elif method =='test_capsule':
-            self.root = './datasets/capsule/' #Change this path
-            self.root = self.root + 'test/'
-            self.img_path = sorted(glob(self.root + '**/*.png'))
-        elif method =='test_bottle':
-            self.root = './datasets/bottle/' #Change this path
-            self.root = self.root + 'test/'
-            self.img_path = sorted(glob(self.root + '**/*.png'))
-        elif method =='valid_bottle':
-            self.root = './datasets/bottle/' #Change this path
-            self.root = self.root + 'test/good/'
-            self.img_path = sorted(glob(self.root + '*.png'))
-        elif method =='valid_capsule':
-            self.root = './datasets/capsule/' #Change this path
-            self.root = self.root + 'test/good/'
             self.img_path = sorted(glob(self.root + '*.png'))
 
         for i in tqdm.tqdm(range(len(self.img_path))):
@@ -67,13 +49,12 @@ class MVDataset(Dataset):
 
 
 class Trainer(object):
-    def __init__(self, epochs, batch_size, lr, kl=0.00001): # kl add
+    def __init__(self, epochs, batch_size, lr):
         self.epochs = epochs
         self.batch_size = batch_size
         self.learning_rate = lr
         self._build_model()
         self.binary_cross_entropy = torch.nn.BCELoss()
-        self.kl = kl # add
 
         dataset = MVDataset(method='train')
         self.root = dataset.root
@@ -97,30 +78,13 @@ class Trainer(object):
 
     def train(self):
         date = '20211017'
-        loss_avg = [] # add
         for epoch in tqdm.tqdm(range(self.epochs + 1)):
-            loss_avg.append(0)
-            if epoch == 11:
-                torch.save(self.net.state_dict(), "_".join(['./savemodel/toothbrush/epoch', str(epoch-1),str(self.kl), '.pth']))
-            elif epoch ==501:
-                torch.save(self.net.state_dict(), "_".join(['./savemodel/toothbrush/epoch', str(epoch-1),str(self.kl), '.pth'])) #Change this path
-                break
-            now_batch=0
+            if epoch % 200 == 0:
+                torch.save(self.net.state_dict(), "_".join(['/content/gdrive/MyDrive/CSE48001/ass1/datasets/toothbrush/model', str(epoch), '.pth'])) #Change this path
+
             for batch_idx, samples in enumerate(self.dataloader):
                 x_train, y_train = samples
                 x_train, y_train = x_train.to(device), y_train.to(device)
-                # print(x_train)
-                # print(y_train)
-                g, latent_mu, latent_logvar = self.net(x_train)
-                loss = Trainer.vae_loss(self, g, x_train, latent_mu, latent_logvar)
-                self.optimizer.zero_grad()
-                loss.backward()
-                self.optimizer.step()
-                loss_avg[-1] += loss.item()
-                now_batch += 1
-                # pdb.set_trace()
-            loss_avg[-1] /= now_batch
-            print('Epoch [%d / %d] average reconstruction error: %f' % (epoch+1, now_batch, loss_avg[-1]))
              
 
         print('Finish training.')
