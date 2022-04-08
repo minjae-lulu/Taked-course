@@ -11,12 +11,13 @@ from glob import glob
 import pandas
 from google.colab.patches import cv2_imshow
 import utils
+import pdb
 
 device = 'cuda:0'
 
 class MVDataset(Dataset):
     def __init__(self, method=None):
-        self.root = '/content/gdrive/MyDrive/CSE48001/ass1/datasets/toothbrush/' #Change this path
+        self.root = '/content/gdrive/MyDrive/CSE48001/ass1/datasets/' #Change this path
         self.x_data = []
         self.y_data = []
 
@@ -78,13 +79,30 @@ class Trainer(object):
 
     def train(self):
         date = '20211017'
+        loss_avg = []
         for epoch in tqdm.tqdm(range(self.epochs + 1)):
-            if epoch % 200 == 0:
-                torch.save(self.net.state_dict(), "_".join(['/content/gdrive/MyDrive/CSE48001/ass1/datasets/toothbrush/model', str(epoch), '.pth'])) #Change this path
-
-            for batch_idx, samples in enumerate(self.dataloader):
-                x_train, y_train = samples
-                x_train, y_train = x_train.to(device), y_train.to(device)
+          loss_avg.append(0)
+          if epoch == 11:
+              torch.save(self.net.state_dict(), "_".join(['./savemodel/toothbrush/epoch', str(epoch-1), '.pth'])) #Change this path
+          elif epoch ==501:
+              torch.save(self.net.state_dict(), "_".join(['./savemodel/toothbrush/epoch', str(epoch-1), '.pth'])) #Change this path
+              break
+          now_batch=0
+          for batch_idx, samples in enumerate(self.dataloader):
+              x_train, y_train = samples
+              x_train, y_train = x_train.to(device), y_train.to(device)
+              # print(x_train)
+              # print(y_train)
+              g, latent_mu, latent_logvar = self.net(x_train)
+              loss = Trainer.vae_loss(self, g, x_train, latent_mu, latent_logvar)
+              self.optimizer.zero_grad()
+              loss.backward()
+              self.optimizer.step()
+              loss_avg[-1] += loss.item()
+              now_batch += 1
+              # pdb.set_trace()
+          loss_avg[-1] /= now_batch
+          print('Epoch [%d / %d] average reconstruction error: %f' % (epoch+1, now_batch, loss_avg[-1]))
              
 
         print('Finish training.')
@@ -102,7 +120,7 @@ class Tester(object):
         self.mse_all_img = []
 
         # Load of pretrained_weight file
-        weight_PATH = '/content/gdrive/MyDrive/CSE48001/ass1/datasets/toothbrush/model.pth' #Change this path
+        weight_PATH = '/content/gdrive/MyDrive/DGM/savemodel/toothbrush/epoch_500_.pth' #Change this path
         self.net.load_state_dict(torch.load(weight_PATH))
 
         print("Testing...")
@@ -116,28 +134,27 @@ class Tester(object):
 
     def test(self):
         for batch_idx, samples in enumerate(self.dataloader):
-            x_test, y_test = samples
-            out = self.net(x_test.cuda())
+          x_test, y_test = samples
+          out = self.net(x_test.cuda())
 
-            x_test2 = 256. * x_test
-            out2 = 256. * out[0]
-
-            abnomal = utils.compare_images_colab(x_test2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), out2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), None, 0.2)   
-
-            cv2.imwrite('test_%d_ori.png' % batch_idx, cv2.cvtColor(x_test2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), cv2.COLOR_RGB2BGR))
-            cv2.imwrite('test_%d_gen.png' % batch_idx, cv2.cvtColor(out2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), cv2.COLOR_RGB2BGR))
-            cv2.imwrite('test_%d_diff.png' % batch_idx, abnomal)
+          x_test2 = 256. * x_test
+          out2 = 256. * out[0]
+          # pdb.set_trace()
+          abnomal = utils.compare_images_colab(x_test2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), out2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), None, 0.2)   
+          cv2.imwrite('./result/tooth10/test_{0:0>3}_ori.png'.format(batch_idx), cv2.cvtColor(x_test2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), cv2.COLOR_RGB2BGR))
+          cv2.imwrite('./result/tooth10/test_{0:0>3}_gen.png'.format(batch_idx), cv2.cvtColor(out2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), cv2.COLOR_RGB2BGR))
+          cv2.imwrite('./result/tooth10/test_{0:0>3}_diff.png'.format(batch_idx), abnomal)
 
 def main():
 
-    epochs = 1500
-    batchSize = 1
+    epochs = 501
+    batchSize = 256
     learningRate = 1e-4
 
-    #trainer = Trainer(epochs, batchSize, learningRate)
-    #trainer.train()
+    # trainer = Trainer(epochs, batchSize, learningRate)
+    # trainer.train()
 
-    tester = Tester(batchSize)
+    tester = Tester(1)
     tester.test()
 
 if __name__ == '__main__':
