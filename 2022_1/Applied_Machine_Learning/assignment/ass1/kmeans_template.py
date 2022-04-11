@@ -1,9 +1,8 @@
-"""
-K-means clustering.
-"""
-
 import numpy as np
 from matplotlib import pyplot as plt
+
+import warnings
+warnings.filterwarnings('ignore') #sometimes, my code occur Mean of empty slice warning so i ignore warning.
 
 
 def analyze_kmeans():
@@ -15,19 +14,19 @@ def analyze_kmeans():
     y = np.genfromtxt("labels.txt", dtype=int)
     distortions = []
     errs = []
-    ks = range(1, 11)
+    ks = range(1, 11) # test 1->10 cluster.
     for k in ks:
         distortion, err = analyze_one_k(X, y, k)
         distortions.append(distortion)
         errs.append(err)
-    fig, ax = plt.subplots(2, figsize=(8, 6))
+    fig, ax = plt.subplots(2, figsize=(8, 6)) # make 2 pic that size 8*6
     ax[0].plot(ks, distortions, marker=".")
     ax[0].set_ylabel("Distortion")
     ax[1].plot(ks, errs, marker=".")
     ax[1].set_xlabel("k")
     ax[1].set_ylabel("Mistake rate")
     ax[0].set_title("k-means performance")
-    fig.savefig("kmeans.png")
+    fig.savefig("kmeans.png")                 # make and save kmeans.png file
 
 
 def analyze_one_k(X, y, k):
@@ -67,14 +66,14 @@ def cluster(X, y, k, n_starts=5):
         """
         A single run of clustering.
         """
-        Mu = initialize(X, k)
-        N = X.shape[0]
-        z = np.repeat(-1, N)        # So that initially all assignments change.
+        Mu = initialize(X, k)       # first initialize random
+        N = X.shape[0]              # mean 1000
+        z = np.repeat(-1, N)        # z = -1 initial first and later assign value.
         while True:
             old_z = z
             z = assign(X, Mu)       # The vector of assignments z.
             Mu = update(X, z, k)    # Update the centroids
-            if np.all(z == old_z):
+            if np.all(z == old_z):  # until the change does't occur
                 distortion = compute_distortion(X, Mu, z)
                 return dict(Mu=Mu, z=z, distortion=distortion)
 
@@ -93,10 +92,12 @@ def assign(X, Mu):
     X is the NxD matrix of inputs.
     Mu is the kxD matrix of cluster centroids.
     """
-    # TODO: Compute the assignments z.
-    z = None
+    find_z = []
+    for i in range(Mu.shape[0]):  # k
+        find_z.append(np.linalg.norm((X-Mu[i]), axis=1))
+        
+    z = np.argmin(find_z,axis=0)  #find min value and assign 
     return z
-
 
 def update(X, z, k):
     """
@@ -106,8 +107,10 @@ def update(X, z, k):
     z is the Nx1 vector of cluster assignments.
     k is the number of clusters.
     """
-    # TODO: Compute the cluster centroids Mu.
-    Mu = None
+    Mu = np.zeros((k, X.shape[1]))  # initialize 0 first
+    for i in range(0, k):
+        centroid = np.mean(X[z==i], axis=0)  # update centroid new z 
+        Mu[i] = centroid
     return Mu
 
 
@@ -116,8 +119,13 @@ def compute_distortion(X, Mu, z):
     Compute the distortion (i.e. within-group sum of squares) implied by NxD
     data X, kxD centroids Mu, and Nx1 assignments z.
     """
-    # TODO: Compute the within-group sum of squares (the distortion).
-    distortion = None
+    dist = []
+    distort = []
+    for k in range(Mu.shape[0]):
+        dist.append(np.linalg.norm((X[z==k]-Mu[k]), axis = 1))
+    for i in range(len(dist)):
+        distort.append(np.sum((dist[i])**2))
+    distortion = sum(distort)
     return distortion
 
 
@@ -126,8 +134,8 @@ def initialize(X, k):
     Randomly initialize the kxD matrix of cluster centroids Mu. Do this by
     choosing k data points randomly from the data set X.
     """
-    # TODO: Initialize Mu.
-    Mu = None
+    rand_v = np.random.randint(0,X.shape[0],k)
+    Mu = X[rand_v]          # make Mu randomly
     return Mu
 
 
@@ -143,8 +151,23 @@ def label_clusters(y, k, z):
     k is the number of clusters
     z is the Nx1 vector of cluster assignments.
     """
-    # TODO: Compute the cluster labelings.
-    labels = None
+    labels = []
+    for i in range(k):
+        counts = [0,0,0,0]
+        for j in range(len(z)):
+            if z[j] == i:
+                if y[j] == 1:
+                    counts[0] += 1
+                elif y[j] == 3:
+                    counts[1] += 1
+                elif y[j] == 5:
+                    counts[2] += 1
+                elif y[j] == 7:
+                    counts[3] += 1
+        lab_num = 2*np.argmax(counts)+1     # choose the most count assigned label
+        labels.append(lab_num)
+        
+    labels = np.array(labels)
     return labels
 
 
