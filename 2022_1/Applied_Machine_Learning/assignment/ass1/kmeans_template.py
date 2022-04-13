@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 
 import warnings
 warnings.filterwarnings('ignore') #sometimes, my code occur Mean of empty slice warning so i ignore warning.
-
+np.seterr(invalid='ignore')
 
 def analyze_kmeans():
     """
@@ -12,7 +12,7 @@ def analyze_kmeans():
     """
     X = np.genfromtxt("digit.txt")
     y = np.genfromtxt("labels.txt", dtype=int)
-    distortions = []
+    distortions = [] # same mean with inertia
     errs = []
     ks = range(1, 11) # test 1->10 cluster.
     for k in ks:
@@ -109,7 +109,7 @@ def update(X, z, k):
     """
     Mu = np.zeros((k, X.shape[1]))  # initialize 0 first
     for i in range(0, k):
-        centroid = np.mean(X[z==i], axis=0)  # update centroid new z 
+        centroid = np.mean(X[z==i], axis=0, dtype=np.int)  # update centroid new z, dtype = int!!!!
         Mu[i] = centroid
     return Mu
 
@@ -119,13 +119,14 @@ def compute_distortion(X, Mu, z):
     Compute the distortion (i.e. within-group sum of squares) implied by NxD
     data X, kxD centroids Mu, and Nx1 assignments z.
     """
-    dist = []
+    square_of_e = []
     distort = []
-    for k in range(Mu.shape[0]):
-        dist.append(np.linalg.norm((X[z==k]-Mu[k]), axis = 1))
-    for i in range(len(dist)):
-        distort.append(np.sum((dist[i])**2))
-    distortion = sum(distort)
+    for i in range(Mu.shape[0]):
+        square_of_e.append(np.linalg.norm((X[z==i]-Mu[i]), axis = 1))
+        
+    for j in range(len(square_of_e)):
+        distort.append(np.sum((square_of_e[j])**2)) # square of error
+    distortion = sum(distort)               # sum of square of error
     return distortion
 
 
@@ -153,21 +154,23 @@ def label_clusters(y, k, z):
     """
     labels = []
     for i in range(k):
-        counts = [0,0,0,0]
+        cnt = [0,0,0,0]
         for j in range(len(z)):
             if z[j] == i:
                 if y[j] == 1:
-                    counts[0] += 1
+                    cnt[0] = cnt[0] + 1
                 elif y[j] == 3:
-                    counts[1] += 1
+                    cnt[1] = cnt[1] + 1
                 elif y[j] == 5:
-                    counts[2] += 1
+                    cnt[2] = cnt[2] + 1
                 elif y[j] == 7:
-                    counts[3] += 1
-        lab_num = 2*np.argmax(counts)+1     # choose the most count assigned label
+                    cnt[3] = cnt[3] + 1
+        lab_num = 2*np.argmax(cnt)+1     # choose the most count assigned label (2*max + 1 : make 0 1 2 3 to 1 3 5 7)
         labels.append(lab_num)
         
     labels = np.array(labels)
+    #print("label is : ------------")
+    #print(labels)
     return labels
 
 
