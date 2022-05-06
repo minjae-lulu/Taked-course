@@ -141,6 +141,9 @@ class Tester(object):
 
             x_test2 = 256. * x_test
             out2 = 256. * out[0]
+            
+            if batch_idx > 10:
+                continue
 
             abnomal = utils.compare_images_colab(x_test2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), out2[0].clone().permute(1, 2, 0).cpu().detach().numpy(), None, 0.2)   
             # os.chdir('/content/gdrive/My Drive/homeworks/dgms/output_toothbrush_500_lr4/')
